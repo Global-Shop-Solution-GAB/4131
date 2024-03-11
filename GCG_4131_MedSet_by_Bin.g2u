@@ -1,0 +1,1042 @@
+Program.Sub.ScreenSU.Start
+Gui.Form1..Create
+Gui.Form1..Caption("Bin to Bin Transfer")
+Gui.Form1..Size(5085,8775)
+Gui.Form1..MinX(0)
+Gui.Form1..MinY(0)
+Gui.Form1..Position(0,0)
+Gui.Form1..BackColor(-2147483633)
+Gui.Form1..MousePointer(0)
+Gui.Form1..Sizeable(False)
+Gui.Form1..Event(UnLoad,Form1_UnLoad)
+Gui.Form1.lbl1.Create(Label,"From Bin",True,1155,255,0,45,165,True,0,"Arial",8,-986896,0)
+Gui.Form1.lbl2.Create(Label,"To Bin",True,975,255,0,2190,150,True,0,"Arial",8,-986896,0)
+Gui.Form1.cmdfrombrowse.Create(Button)
+Gui.Form1.cmdfrombrowse.Size(495,405)
+Gui.Form1.cmdfrombrowse.Position(1410,315)
+Gui.Form1.cmdfrombrowse.Caption("^")
+Gui.Form1.cmdfrombrowse.Event(Click,cmdfrombrowse_Click)
+Gui.Form1.txtFrom.Create(TextBox,"",True,1215,300,0,45,375,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.txtTo.Create(TextBox,"",True,1215,300,0,2175,360,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.cmdtobrowse.Create(Button)
+Gui.Form1.cmdtobrowse.Size(495,405)
+Gui.Form1.cmdtobrowse.Position(3435,300)
+Gui.Form1.cmdtobrowse.Caption("^")
+Gui.Form1.cmdtobrowse.Event(Click,cmdtobrowse_Click)
+Gui.Form1.lblqty.Create(Label,"Total Qty to Transfer",True,1680,255,0,1455,7740,True,0,"Arial",8,15790320,0)
+Gui.Form1.lblqty.ForeColor(0)
+Gui.Form1.txtQty.Create(TextBox,"",True,1215,300,0,3180,7680,False,0,"Arial",8,-2147483643,1)
+Gui.Form1.txtQty.ForeColor(0)
+Gui.Form1.GsGridControl1.Create(GsGridControl)
+Gui.Form1.GsGridControl1.Size(4845,5340)
+Gui.Form1.GsGridControl1.Position(15,2295)
+Gui.Form1.cmdTransfer.Create(Button)
+Gui.Form1.cmdTransfer.Size(1125,495)
+Gui.Form1.cmdTransfer.Position(105,7965)
+Gui.Form1.cmdTransfer.Caption("Transfer")
+Gui.Form1.cmdTransfer.Event(Click,cmdTransfer_Click)
+Gui.Form1.lblFromLoc.Create(Label,"From Location",True,1290,255,0,45,855,True,0,"Arial",8,-986896,0)
+Gui.Form1.lblToLoc.Create(Label,"To Location",True,1260,255,0,2205,840,True,0,"Arial",8,-986896,0)
+Gui.Form1.txtFromLoc.Create(TextBox,"",True,1215,300,0,45,1080,False,0,"Arial",8,-2147483643,1)
+Gui.Form1.txttoLoc.Create(TextBox,"",True,1215,300,0,2190,1065,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.txttoLoc.MaxLength(2)
+Gui.Form1.txttoLoc.Locked(True)
+Gui.Form1.cmdToLocBrowse.Create(Button)
+Gui.Form1.cmdToLocBrowse.Size(495,405)
+Gui.Form1.cmdToLocBrowse.Position(3465,1005)
+Gui.Form1.cmdToLocBrowse.Caption("^")
+Gui.Form1.cmdToLocBrowse.Event(Click,cmdToLocBrowse_Click)
+Gui.Form1.lbl3.Create(Label,"Person Responsible For",True,1995,255,0,45,1560,True,0,"Arial",8,-2147483633,0)
+Gui.Form1.txtPerson.Create(TextBox,"",True,2070,300,0,45,1785,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.txtPerson.MaxLength(50)
+Gui.Form1.ddlStatus.Create(DropDownList)
+Gui.Form1.ddlStatus.Size(1755,330)
+Gui.Form1.ddlStatus.Position(2310,1785)
+Gui.Form1.lbl4.Create(Label,"Status",True,1140,255,0,2430,1560,True,0,"Arial",8,-2147483633,0)
+Gui.Form2..Create
+Gui.Form2..Caption("Location")
+Gui.Form2..Size(2985,2565)
+Gui.Form2..MinX(0)
+Gui.Form2..MinY(0)
+Gui.Form2..Position(0,0)
+Gui.Form2..BackColor(-2147483633)
+Gui.Form2..MaxButton(False)
+Gui.Form2..MinButton(False)
+Gui.Form2..MousePointer(0)
+Gui.Form2..Event(UnLoad,Form2_UnLoad)
+Gui.Form2.cmdContinue.Create(Button)
+Gui.Form2.cmdContinue.Size(855,375)
+Gui.Form2.cmdContinue.Position(255,1365)
+Gui.Form2.cmdContinue.Caption("Continue")
+Gui.Form2.cmdContinue.Event(Click,cmdContinue_Click)
+Gui.Form2.lblloc.Create(Label,"Select a location for the new bin",True,2970,255,0,165,390,True,0,"Arial",8,-986896,0)
+Gui.Form2.ddl.Create(DropDownList)
+Gui.Form2.ddl.Size(1785,330)
+Gui.Form2.ddl.Position(225,735)
+Gui.Form3..Create
+Gui.Form3..Caption("Transferring")
+Gui.Form3..Size(6795,1800)
+Gui.Form3..MinX(0)
+Gui.Form3..MinY(0)
+Gui.Form3..Position(0,0)
+Gui.Form3..BackColor(-2147483633)
+Gui.Form3..MousePointer(0)
+Gui.Form3..Sizeable(False)
+Gui.Form3..Event(UnLoad,Form1_UnLoad)
+Gui.Form3.progressBar1.Create(ProgressBar)
+Gui.Form3.progressBar1.Size(6075,255)
+Gui.Form3.progressBar1.Position(255,495)
+Gui.Form4..Create
+Gui.Form4..Caption("Post Transfer Audit")
+Gui.Form4..Size(4605,6195)
+Gui.Form4..MinX(0)
+Gui.Form4..MinY(0)
+Gui.Form4..Position(0,0)
+Gui.Form4..BackColor(-2147483633)
+Gui.Form4..MousePointer(0)
+Gui.Form4..Sizeable(False)
+Gui.Form4..Event(UnLoad,Form4_UnLoad)
+Gui.Form4.lblABin.Create(Label,"Bin",True,945,255,0,195,315,True,0,"Arial",8,-986896,0)
+Gui.Form4.txtABin.Create(TextBox,"",True,1215,300,0,195,600,False,0,"Arial",8,-2147483643,1)
+Gui.Form4.lblAAuditBy.Create(Label,"Audit By",True,900,255,0,195,1125,True,0,"Arial",8,-986896,0)
+Gui.Form4.txtAAuditBy.Create(TextBox,"",True,1215,300,0,195,1395,True,1,"Arial",8,-2147483643,1)
+Gui.Form4.txtAAuditBy.MaxLength(30)
+Gui.Form4.lblAQuantity.Create(Label,"Quantity",True,870,255,0,2565,1185,True,0,"Arial",8,-986896,0)
+Gui.Form4.txtAQuantity.Create(TextBox,"",True,1215,300,0,2550,1410,True,1,"Arial",8,-2147483643,1)
+Gui.Form4.txtAMethod.Create(TextBox,"",True,3645,300,0,210,2655,True,1,"Arial",8,-2147483643,1)
+Gui.Form4.txtAMethod.MaxLength(30)
+Gui.Form4.lblAMethod.Create(Label,"Method/Ship Via",True,1935,255,0,195,2400,True,0,"Arial",8,-986896,0)
+Gui.Form4.lblAComments.Create(Label,"Comments",True,1935,255,0,195,3150,True,0,"Arial",8,-986896,0)
+Gui.Form4.txtAcomments.Create(TextboxM)
+Gui.Form4.txtAcomments.Size(3615,1605)
+Gui.Form4.txtAcomments.Position(240,3420)
+Gui.Form4.txtAcomments.Alignment(1)
+Gui.Form4.txtAcomments.MaxLength(30)
+Gui.Form4.lblALoc.Create(Label,"Location",True,720,255,0,2535,360,True,0,"Arial",8,-986896,0)
+Gui.Form4.txtALocation.Create(TextBox,"",True,1215,300,0,2535,600,False,0,"Arial",8,-2147483643,1)
+Gui.Form4.cmdASave.Create(Button)
+Gui.Form4.cmdASave.Size(855,375)
+Gui.Form4.cmdASave.Position(2955,5160)
+Gui.Form4.cmdASave.Caption("Save")
+Gui.Form4.cmdASave.Event(Click,cmdASave_Click)
+Gui.Form4.chkAReady.Create(CheckBox)
+Gui.Form4.chkAReady.Size(1560,360)
+Gui.Form4.chkAReady.Position(195,1875)
+Gui.Form4.chkAReady.Caption("Surgery Ready?")
+Gui.Form4.chkAUseNA.Create(CheckBox)
+Gui.Form4.chkAUseNA.Size(1995,360)
+Gui.Form4.chkAUseNA.Position(1965,1890)
+Gui.Form4.chkAUseNA.Caption("Use N/A for Quantity")
+Gui.Form4.chkAUseNA.Event(Click,chkAUseNA_Click)
+Gui.Form4.chkPrint.Create(CheckBox)
+Gui.Form4.chkPrint.Size(1365,360)
+Gui.Form4.chkPrint.Position(390,5160)
+Gui.Form4.chkPrint.Caption("Print Report")
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+V.Global..BulkDeclareString(sDesc, sFromBin,sLoc,sToBin,sFromLoc, sToLoc,sBin, sPerson, sStatus)
+V.Global.iqty.Declare(Long)
+V.Global.iSave.Declare(Long, -1)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+V.Local..BulkDeclareString(susersql, sList, ssql)
+V.Local.iC.Declare(Long)
+'Looking to track surgical medical sets throughout the country as they are delivered to hospitals and returned to Acero (AS).
+'CustomTransactionwillbedonefromGlobal\Inventory\Transactions\"Bulk Bin2Bin Trans"
+'Coded by: WAW
+'Date: 7/11/2016
+'new changes 9/13/2017 Dawn Hughes
+
+'open the conneciton
+F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,1800)
+
+f.Intrinsic.String.Build("Select PART, LOCATION, QUANTITY, BIN, HEAT, SERIAL_NUMBER, LOT, QTY_AVAILABLE_SHIP from V_ITEM_MASTER","",v.local.ssql)
+Function.data.DataTable.CreateFromSQL("PART","conx",v.Local.sSql,True)
+
+'populate the ddlStatus
+V.Local.sList.Set("Loaner,Demo/Sample,Consigned,Parked,Incomplete, Surgery Ready,In Process")
+F.Intrinsic.String.Split(V.Local.sList, ",", V.Local.sList)
+F.Intrinsic.Control.For(V.Local.iC, 0, V.Local.sList.UBound, 1)
+	GUI.Form1.ddlStatus.AddItem(V.Local.sList(V.Local.iC))
+F.Intrinsic.Control.Next(V.Local.iC)
+GUI.Form1.ddlStatus.Text("")
+GUI.Form1.txtPerson.Text("Altus")
+
+GUI.Form1.txtFrom.Anchor(5)
+GUI.Form1.lbl1.Anchor(5)
+GUI.Form1.cmdfrombrowse.Anchor(5)
+GUI.Form1.lblFromLoc.Anchor(5)
+GUI.Form1.lbl3.Anchor(5)
+GUI.Form1.txtPerson.Anchor(5)
+GUI.Form1.lbl2.Anchor(9)
+GUI.Form1.txtTo.Anchor(9)
+GUI.Form1.txtToLoc.Anchor(9)
+GUI.Form1.lblToLoc.Anchor(9)
+GUI.Form1.cmdtobrowse.Anchor(9)
+GUI.Form1.cmdToLocBrowse.Anchor(9)
+GUI.Form1.lbl4.Anchor(9)
+GUI.Form1.ddlStatus.Anchor(9)
+GUI.Form1.GsGridControl1.Anchor(15)
+GUI.Form1.cmdTransfer.Anchor(6)
+GUI.Form1.lblqty.Anchor(10)
+GUI.Form1.txtQty.Anchor(10)
+GUI.Form4.lblABin.Anchor(5)
+GUI.Form4.txtABin.Anchor(5)
+GUI.Form4.lblAAuditBy.Anchor(5)
+GUI.Form4.txtAAuditBy.Anchor(5)
+GUI.Form4.chkAReady.Anchor(5)
+GUI.Form4.lblAMethod.Anchor(5)
+GUI.Form4.txtAMethod.Anchor(5)
+GUI.Form4.lblAComments.Anchor(5)
+GUI.Form4.chkPrint.Anchor(6)
+GUI.Form4.txtAcomments.Anchor(15)
+GUI.Form4.lblALoc.Anchor(9)
+GUI.Form4.txtALocation.Anchor(9)
+GUI.Form4.lblAQuantity.Anchor(9)
+GUI.Form4.txtAQuantity.Anchor(9)
+GUI.Form4.cmdASave.Anchor(10)
+
+'display the form
+GUI.Form1..Show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.cmdfrombrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdfrombrowse_click_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+V.Local.sret.Declare(String)
+V.Local.ssql.Declare(String)
+V.Local.sTotal.Declare(String)
+V.Local.sFilter.Declare(String)
+'set browser type ahead
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+Function.Intrinsic.UI.Browser(150,"",Variable.Local.sRet)
+Function.Intrinsic.Control.If(Variable.Local.sRet,<>,"***CANCEL***")
+
+	F.Intrinsic.Control.If(V.dataview.PART!BIN.exists,=,True)
+		F.data.dataview.close("PART","BIN")
+	f.Intrinsic.Control.EndIf
+	
+	'split the return
+	F.Intrinsic.String.Split(V.Local.sret,"*!*",V.Local.sret)
+	'set the bin number in the textbox
+	gui.Form1.txtfrom.Text(V.Local.sret(0))
+	'set the global bin
+	V.Global.sFromBin.Set(V.Local.sret(0))
+	gui.Form1.txtTo.Text(v.Local.sret(0))
+	v.Global.sToBin.Set(v.Local.sret(0))
+	v.Global.sToLoc.Set(v.Local.sret(1))
+	v.Global.sFromLoc.Set(v.Local.sret(1))
+	'set the description
+	V.Global.sDesc.Set(V.Local.sret(2))
+	'set the text in the from loc textbox
+	gui.Form1.txtFromLoc.Text(v.Global.sFromLoc.Trim)
+	gui.Form1.txttoLoc.Text(v.Global.sFromLoc.Trim)
+	f.Intrinsic.String.Build("BIN = '{0}' and LOCATION = '{1}'",v.Local.sret(0).Trim,v.Global.sFromLoc,v.Local.ssql)
+	
+	f.data.dataview.create("PART","BIN",22,v.Local.ssql,"PART ASC")
+	
+	gui.Form1.GsGridControl1.addgridviewfromDataview("GRID","PART","BIN")
+	gui.Form1.GsGridControl1.setcolumnproperty("GRID","BIN","visible",False)
+	gui.Form1.GsGridControl1.setcolumnproperty("GRID","HEAT","visible",False)
+	gui.Form1.GsGridControl1.setcolumnproperty("GRID","SERIAL_NUMBER","visible",False)
+	gui.Form1.GsGridControl1.setcolumnproperty("GRID","LOT","visible",False)
+	gui.Form1.GsGridControl1.mainview("GRID")
+	
+F.Intrinsic.Control.endif
+'get total
+F.Intrinsic.String.Build("BIN = '{0}' AND LOCATION = '{1}'", V.Global.sFromBin, V.Global.sFromLoc, V.Local.sFilter)
+Function.Data.DataTable.Compute("PART","SUM(QUANTITY)",V.Local.sFilter ,V.Local.sTotal)
+gui.Form1.txtQty.Text(V.Local.sTotal)
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("cmdfrombrowse_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdfrombrowse_Click.End
+
+Program.Sub.cmdtobrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdtobrowse_click_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+V.Local.sret.Declare(String)
+Function.Intrinsic.Control.If(V.Screen.Form1!txtFrom.Text, =, "")
+	F.Intrinsic.UI.Msgbox("Choose a 'From Bin'")
+	F.Intrinsic.Control.ExitSub
+Function.Intrinsic.Control.EndIf
+'set browser type ahead
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+Function.Intrinsic.UI.Browser(150,"",Variable.Local.sRet)
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+F.Intrinsic.Control.Else
+	'split the return
+	F.Intrinsic.String.Split(V.Local.sret,"*!*",V.Local.sret)
+	'set the bin number in the textbox
+	gui.Form1.txtTo.Text(V.Local.sret(0))
+	'set the global bin
+	V.Global.stoBin.Set(V.Local.sret(0))
+	v.Global.sToLoc.Set(v.Local.sret(1))
+	'set the location in the textbox
+	gui.Form1.txttoLoc.Text(v.Global.sToLoc.Trim)
+	'set the desc
+	V.Global.sDesc.Set(V.Local.sret(2))
+F.Intrinsic.Control.Endif
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("cmdtobrowse_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdtobrowse_Click.End
+
+Program.Sub.cmdTransfer_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdtransfer_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.ssql.Declare(String)
+v.Local.sret.Declare(string)
+v.Local.fqtycheck.Declare(float)
+V.Local.sFilterZero.Declare(String)
+V.Local.sFilterShip.Declare(String)
+V.Local.iRet.Declare(Long)
+
+'check the user is not transferring a zero amount
+v.Local.fqtycheck.Set(v.Screen.Form1!txtQty.Text)
+
+f.Intrinsic.Control.If(v.Local.fqtycheck,<,1)
+	F.Intrinsic.UI.Msgbox("The selected bin has a qty of 0, please select another")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+
+'check to make sure to/from bins were selected
+F.Intrinsic.Control.If(V.Screen.Form1!txtFrom.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select a To Bin")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'check the responsible person not blank
+F.Intrinsic.Control.If(V.Screen.Form1!txtPerson.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Enter a Person Responsible")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'check ddl Status not blank
+F.Intrinsic.Control.If(V.Screen.Form1!ddlStatus.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select a Status")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'check the user is not transfering to same bin and location
+Function.Intrinsic.Control.If(v.Screen.Form1!txtFrom.Text, =, v.Screen.Form1!txtTo.Text)
+	Function.Intrinsic.Control.If(v.Screen.Form1!txtFromLoc.Text, = , v.Screen.Form1!txttoLoc.Text)
+		f.Intrinsic.UI.Msgbox("Cannot transfer to/from same Bin and Location")
+		Function.Intrinsic.Control.Exitsub
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndIf
+
+'ask twice if they are sure when the BINS do not match
+Function.Intrinsic.Control.If(v.Screen.Form1!txtFrom.Text, <>, V.Screen.Form1!txtTo.Text)
+	F.Intrinsic.UI.Msgbox("The 'To' BIN and 'From' BIN are different. Is your intention to create a new BIN?", "Caution", 4, V.Local.iRet)
+	Function.Intrinsic.Control.If(V.Local.iRet, =, 6)
+		F.Intrinsic.UI.Msgbox("Are You Absolutely Sure?", "Caution", 4, V.Local.iRet)
+			Function.Intrinsic.Control.If(V.Local.iRet, =, 7)
+				GUI.Form1.txtTo.Text(v.Screen.Form1!txtFrom.Text)
+			Function.Intrinsic.Control.EndIf
+	Function.Intrinsic.Control.Else
+		GUI.Form1.txtTo.Text(v.Screen.Form1!txtFrom.Text)
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndIf
+
+'Check all records have  QTY_AVAILABLE_SHIP >= QUANTITY and Quantity > 0
+Function.Data.DataView.ToDataTable("PART", "BIN", "Check")
+V.Local.sFilterZero.Set("QUANTITY < 0")
+F.data.dataview.create("Check","CheckView")
+Function.Data.DataView.SetFilter("Check","CheckView", V.Local.sFilterZero)
+
+F.Intrinsic.Control.If(V.DataView.Check!CheckView.RowCount, > , 0)
+	F.Intrinsic.UI.Msgbox("All Quantities must be greater than 0")
+	F.Data.DataView.Close("Check","CheckView")
+	F.Data.DataTable.Close("Check")
+	Function.Intrinsic.Control.Exitsub
+Function.Intrinsic.Control.EndIf
+
+F.Data.DataView.Close("Check","CheckView")
+F.Data.DataTable.Close("Check")
+Function.Data.DataView.ToDataTable("PART", "BIN", "Check")
+V.Local.sFilterZero.Set("QTY_AVAILABLE_SHIP < 0")
+F.data.dataview.create("Check","CheckView")
+Function.Data.DataView.SetFilter("Check","CheckView", V.Local.sFilterZero)
+
+F.Intrinsic.Control.If(V.DataView.Check!CheckView.RowCount, > , 0)
+	F.Intrinsic.UI.Msgbox("All Quantities Available to Ship must be greater than 0")
+	F.Data.DataView.Close("Check","CheckView")
+	F.Data.DataTable.Close("Check")
+	Function.Intrinsic.Control.Exitsub
+Function.Intrinsic.Control.EndIf
+
+F.Data.DataView.Close("Check","CheckView")
+F.Data.DataTable.Close("Check")
+Function.Data.DataView.ToDataTable("PART", "BIN", "Check")
+V.Local.sFilterShip.Set("QTY_AVAILABLE_SHIP-QUANTITY")
+Function.Data.DataTable.AddExpressionColumn("Check", "Total", "LONG", V.Local.sFilterShip)
+V.Local.sFilterZero.Set("Total < 0")
+F.data.dataview.create("Check","CheckView")
+Function.Data.DataView.SetFilter("Check","CheckView", V.Local.sFilterZero)
+
+F.Intrinsic.Control.If(V.DataView.Check!CheckView.RowCount, > , 0)
+	F.Intrinsic.UI.Msgbox("All Quantities must be greater than/ equal to Quantities Available to Ship")
+	F.Data.DataView.Close("Check","CheckView")
+	F.Data.DataTable.Close("Check")
+	Function.Intrinsic.Control.Exitsub
+Function.Intrinsic.Control.EndIf
+
+F.Data.DataView.Close("Check","CheckView")
+F.Data.DataTable.Close("Check")
+
+
+V.Global.sToLoc.set(v.Screen.Form1!txttoLoc.Text)
+V.Global.sFromLoc.set(v.Screen.Form1!txtFromLoc.Text)
+V.Global.sToBin.Set(V.Screen.Form1!txtTo.Text)
+V.Global.sFromBin.Set(V.Screen.Form1!txtFrom.Text)
+V.Global.sPerson.Set(V.Screen.Form1!txtPerson.Text)
+V.Global.sStatus.Set(V.Screen.Form1!ddlStatus.Text)
+
+gui.Form1..Visible(False)
+'Create BIN MAster record
+F.Intrinsic.String.Build("Select * from BIN_MASTER where BIN = '{0}' and LOCATION = '{1}'",V.global.sToBin.Trim,v.Global.sToLoc.Trim,v.local.ssql)
+F.ODBC.Connection!conx.openrecordsetro("rst",V.Local.ssql)
+F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,True)
+	'inform the user that the bin they are trying to create 
+	F.Intrinsic.UI.Msgbox("There is currently no BIN in the 'To' location with that name. Would you like to create it?","Caution",4,v.Local.sret)
+	f.Intrinsic.Control.If(v.Local.sret,=,"6")
+		f.ODBC.Conx!rst.Close
+		f.Intrinsic.Control.CallSub(cmdcontinue_click)
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.ElseIf(v.Local.sret,=,"7")
+		f.ODBC.Conx!rst.Close
+		gui.Form1..Visible(TRUE)
+		f.Intrinsic.Control.ExitSub	
+	f.intrinsic.Control.EndIf	
+F.Intrinsic.Control.EndIf
+f.ODBC.Conx!rst.Close
+f.Intrinsic.Control.CallSub(continuefromnew)
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdtransfer_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdTransfer_Click.End
+
+Program.Sub.cmdContinue_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdcontinue_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.slocsql.Declare(String)
+
+'set the location
+V.Global.sLoc.Set(V.Screen.Form1!txttoLoc.Text)
+'set the Bin
+V.Global.sBin.Set(V.Screen.Form1!txtTo.Text)
+'write the bin to BIN master
+F.Intrinsic.String.Build("Select * from BIN_MASTER where BIN = '{0}' And LOCATION = '{1}'",V.Global.sBin,V.Global.sLoc,V.Local.slocsql)
+F.ODBC.Connection!conx.openrecordsetrw("rstloc",V.Local.slocsql)
+F.Intrinsic.Control.If(V.ODBC.conx!rstloc.EOF,=,TRUE)
+	F.ODBC.conx!rstloc.AddNew
+	F.ODBC.conx!rstloc.Set!BIN(V.global.sBin.Trim)
+	F.ODBC.conx!rstloc.Set!LOCATION(V.global.sLoc.Trim)
+	f.ODBC.Conx!rstloc.Set!BIN_DESCRIPTION(v.Global.sDesc.Trim)
+	F.ODBC.Conx!rstloc.Update
+F.Intrinsic.Control.EndIf
+F.ODBC.Conx!rstloc.Close
+
+'call the transfer sub
+F.Intrinsic.Control.CallSub(continuefromnew)
+
+	F.Intrinsic.Control.Label("cmdcontinue_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.cmdContinue_Click.End
+
+Program.Sub.Form2_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("form2_unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+f.Intrinsic.Control.BlockEvents
+'make the form invisible
+gui.Form42..Visible(false)
+f.Intrinsic.Control.UnBlockEvents
+
+f.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("form2_unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Form2_UnLoad.End
+
+Program.Sub.Form1_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("form1_unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+gui.Form1..Visible(false)
+
+'close the connection
+F.ODBC.Connection!conx.Close
+
+'end the program
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("form1_unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Form1_UnLoad.End
+
+Program.Sub.ContinueFromNew.Start
+F.Intrinsic.Control.SetErrorHandler("ContinueFromNew_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+V.Local.sDelimiter.Declare(String)
+v.Local.fprice.Declare(float)
+V.Local..BulkDeclareLong(iRows, iPosition)
+v.Local.fqty.Declare(float)
+V.Local..BulkDeclareString(sfilename,sfilepath,ssql,susersql,suser,sline,sfinal,slocsql,sreturn,sreturn2,spart,sqty,sheat,slot,sserial,ddate,sret,sUM,sinv2,sdesc,spl,ssource,salt1,salt2,smsg,supdatesql,sdescnew)
+
+F.Intrinsic.String.Build("{0},{0}",V.Ambient.DblQuote,V.Local.sDelimiter)
+
+'set the date and format it
+v.Local.ddate.Set(v.Ambient.Date)
+f.Intrinsic.String.Format(v.Local.ddate,"YYYYMMDD",v.Local.ddate)
+
+'check to make sure to/from bins were selected
+F.Intrinsic.Control.If(V.Screen.Form1!txtFrom.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select a From Bin")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Elseif(V.Screen.Form1!txtTo.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select a To Bin")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.InvokeWaitDialog("Transferring")
+
+'set the global bin
+V.Global.sToBin.Set(V.Screen.Form1!txtTo.Text)
+V.Global.iqty.Set(V.Screen.Form1!txtQty.Text)
+
+'loop through the dataview and begin building the string for upload
+function.data.dataview.tostring("PART","BIN","*!*",v.Ambient.NewLine,v.Local.sreturn)
+f.Intrinsic.String.Split(v.Local.sreturn,v.Ambient.NewLine,v.Local.sreturn)
+
+f.Intrinsic.Control.For(v.Local.iRows,0,v.Local.sreturn.UBound,1)
+	f.Intrinsic.String.Split(v.Local.sreturn(v.Local.irows),"*!*",v.Local.sreturn2)
+	'set the part and the quantity
+	v.Local.spart.Set(v.Local.sreturn2(0))
+	v.Local.sqty.Set(v.Local.sreturn2(2))
+	'set lot heat and serial
+	v.Local.slot.Set(v.Local.sreturn2(6).Trim)
+	v.Local.sheat.Set(v.local.sreturn2(4).trim)
+	v.Local.sserial.Set(v.local.sreturn2(5).trim)		
+	f.Intrinsic.string.RPad(v.Local.spart," ",20,v.Local.spart)
+	
+	'check the part in the from location - FROM LOCATION
+	'check to see if the part exists in both companies
+	f.Intrinsic.String.Build("Select PART, FLAG_LOT, UM_INVENTORY, DESCRIPTION, PRODUCT_LINE, AMT_PRICE from INVENTORY_MSTR where PART = '{0}' and LOCATION = '{1}'",v.Local.spart.PSQLFriendly,v.Global.sFromLoc.Trim,v.Local.ssql)
+	F.ODBC.Connection!conx.openrecordsetrw("rstloc",V.Local.ssql)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstloc.EOF,=,False)
+		'if not flagged for lot bin, flag it
+		f.Intrinsic.Control.If(v.ODBC.Conx!rstloc!FLAG_LOT,<>,"Y")
+			F.ODBC.conx!rstloc.Set!FLAG_LOT("Y")
+			F.ODBC.Conx!rstloc.Update
+		f.Intrinsic.Control.EndIf
+		'set the local variables
+		v.Local.sUM.Set(v.ODBC.Conx!rstloc.FieldValTrim!UM_INVENTORY)
+		v.Local.sdescnew.Set(v.ODBC.Conx!rstloc.FieldValTrim!DESCRIPTION)
+		v.Local.sdesc.Set(v.Local.sdescnew.PSQLFriendly)
+		v.Local.spl.Set(v.ODBC.Conx!rstloc.FieldValTrim!PRODUCT_LINE)
+		v.Local.fprice.Set(v.ODBC.Conx!rstloc.FieldValTrim!AMT_PRICE)
+		
+		'get the additional information to create the part
+		f.Intrinsic.String.Build("Select CODE_SOURCE, DESCRIPTION_2, DESCRIPTION_3 from V_INVENTORY_MST2 where PART = '{0}' and LOCATION = '{1}'",v.Local.spart.PSQLFriendly,v.Global.sFromLoc.Trim,v.Local.sinv2)
+		F.ODBC.Connection!conx.openrecordsetro("rstinv",V.Local.sinv2)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstinv.EOF,=,False)
+			'set the local variables
+			v.Local.ssource.Set(v.ODBC.Conx!rstinv.FieldValTrim!CODE_SOURCE)
+			v.Local.salt1.Set(v.ODBC.Conx!rstinv.FieldValTrim!DESCRIPTION_2)
+			v.Local.salt2.Set(v.ODBC.Conx!rstinv.FieldValTrim!DESCRIPTION_3)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Conx!rstinv.Close
+	f.Intrinsic.Control.Else
+'		v.Local.sdesc.set("test")
+		F.Intrinsic.String.StripCharacters(v.Local.sdesc, v.Local.sdesc)
+		'""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+	F.Global.Inventory.CreatePart(v.Local.spart.Trim,v.Local.sUM.Trim,v.Local.sdesc.PSQLFriendly,v.Global.sFromLoc.Trim,v.Local.spl.Trim,v.Local.ssource.Trim,v.Local.salt1.Trim,v.Local.salt2.Trim,v.local.fprice,"NOMAINT")	
+	f.Intrinsic.Control.EndIf
+	f.ODBC.Conx!rstloc.Close
+	
+	'TO LOCATION
+	f.Intrinsic.String.Build("Select PART, FLAG_LOT, UM_INVENTORY, DESCRIPTION, PRODUCT_LINE from INVENTORY_MSTR where PART = '{0}' and LOCATION = '{1}'",v.Local.spart.PSQLFriendly,v.Global.sToLoc.Trim,v.Local.ssql)
+	F.ODBC.Connection!conx.openrecordsetrw("rstloc",V.Local.ssql)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstloc.EOF,=,False)
+		'if not flagged for lot bin, flag it
+		f.Intrinsic.Control.If(v.ODBC.Conx!rstloc!FLAG_LOT,<>,"Y")
+			F.ODBC.conx!rstloc.Set!FLAG_LOT("Y")
+			F.ODBC.Conx!rstloc.Update
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Else
+'		v.Local.sdesc.set("test")
+		F.Intrinsic.String.StripCharacters(v.Local.sdesc, v.Local.sdesc)
+		'"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		F.Global.Inventory.CreatePart(v.Local.spart.Trim,v.Local.sUM.Trim,v.Local.sdesc.PSQLFriendly,v.Global.sToLoc.Trim,v.Local.spl.Trim,v.Local.ssource.Trim,v.Local.salt1.Trim,v.Local.salt2.Trim,v.local.fprice,"NOMAINT")
+		f.Intrinsic.String.Build("Select FLAG_LOT from INVENTORY_MSTR where PART = '{0}' and LOCATION = '{1}'",v.Local.spart.PSQLFriendly,v.Global.sToLoc.Trim,v.Local.supdatesql)
+		F.ODBC.Connection!conx.openrecordsetrw("rst",V.Local.supdatesql)
+		F.Intrinsic.Control.If(V.ODBC.conx!rst.EOF,=,False)
+			'if not flagged for lot bin, flag it
+			f.Intrinsic.Control.If(v.ODBC.Conx!rst!FLAG_LOT,<>,"Y")
+				F.ODBC.conx!rst.Set!FLAG_LOT("Y")
+				F.ODBC.Conx!rst.Update
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Conx!rst.Close
+	f.Intrinsic.Control.EndIf
+	f.ODBC.Conx!rstloc.Close
+	
+	f.Intrinsic.Control.If(v.Local.sfinal,=,"")
+		f.Intrinsic.String.Build("{0}{14}{1}{14}{2}{14}{3}{14}{4}{14}{5}{14}{6}{14}{7}{14}{8}{14}{9}{14}{10}{14}{11}{14}{12}{14}{13}",v.Local.spart,v.Global.sFromLoc.Trim,v.Local.sqty.Trim,v.global.sfrombin.Trim,v.global.stobin.Trim,v.Local.slot.Trim,v.Local.sheat.Trim,v.Local.sserial.Trim,"","",v.Global.sToLoc.Trim,"Y",V.Caller.User,v.local.ddate,V.Local.sDelimiter,v.local.sfinal)
+	f.Intrinsic.Control.Else
+		f.Intrinsic.String.Build("{0}{14}{1}{14}{2}{14}{3}{14}{4}{14}{5}{14}{6}{14}{7}{14}{8}{14}{9}{14}{10}{14}{11}{14}{12}{14}{13}",v.Local.spart,v.Global.sFromLoc.Trim,v.Local.sqty.Trim,v.global.sfrombin.Trim,v.global.stobin.Trim,v.Local.slot.Trim,v.Local.sheat.Trim,v.Local.sserial.Trim,"","",v.Global.sToLoc.Trim,"Y",V.Caller.User,v.local.ddate,V.Local.sDelimiter,v.local.sline)
+		f.Intrinsic.String.Build("{0}{1}{2}",v.Local.sfinal,v.Ambient.NewLine,v.Local.sline,v.Local.sfinal)
+	f.Intrinsic.Control.endif	
+	
+	f.Intrinsic.UI.ChangeWaitStatus("Transferring",v.Local.irows,0,v.Local.sreturn.UBound)		
+f.Intrinsic.Control.Next(v.Local.irows)
+
+'create the filepath and name
+F.Intrinsic.String.Build("0{0}{1}{2}",V.Caller.CompanyCode,V.Caller.Terminal,"BIN2BINTRNS",V.Local.sfilename)
+'build the filepath
+F.Intrinsic.String.Build("{0}\{1}",V.caller.FilesDir,V.Local.sfilename,V.Local.sfilepath)
+F.Intrinsic.file.String2File(V.local.sfilepath,V.Local.sfinal)
+
+F.Intrinsic.Task.LaunchGSSSync("LOT054UP","-c",V.Local.sfilename)
+
+gui.Form1..Visible(false)
+
+'9/13/2017 delete the Bin that was transferred in the from location
+F.Intrinsic.String.Build("Delete From BIN_MASTER Where BIN = '{0}' And Location = '{1}'", v.global.sfrombin.Trim, v.Global.sFromLoc.Trim, V.Local.ssql)
+F.ODBC.Connection!Conx.Execute(V.Local.ssql)
+
+
+'set the quantity
+v.Local.fqty.Set(v.Screen.Form4!txtAQuantity.Text)
+
+'pre-load the Audit screen
+f.Intrinsic.Control.CallSub(loadaudit)
+F.Intrinsic.UI.CloseWaitDialog
+'make the audit form visible
+gui.Form4..Visible(true)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ContinueFromNew_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.ContinueFromNew.End
+
+Program.Sub.cmdToLocBrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdfrombrowse_Click_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+v.Local.stitles.Declare(string)
+v.Local.iwidths.Declare(long)
+v.Local.sret.Declare(string)
+v.Local.ssql.Declare(string)
+Function.Intrinsic.Control.If(V.Screen.Form1!txtTo.Text, =, "")
+	F.Intrinsic.UI.Msgbox("Choose a 'To Bin'")
+	F.Intrinsic.Control.ExitSub
+Function.Intrinsic.Control.EndIf
+'set the titles and widths
+f.Intrinsic.String.Split("Location*!*Location Description","*!*",v.Local.stitles)
+f.Intrinsic.String.Split("1000*!*2000","*!*",v.local.iwidths)
+'query for location and the location description
+f.Intrinsic.UI.Browser("Select a Location","conx","Select distinct LOCATION, LOCATION_DESC from V_LOCATIONS",v.local.stitles,v.local.iwidths,v.local.sret)
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+	 Function.Intrinsic.UI.Msgbox("No location was selected")
+Function.Intrinsic.Control.Else
+ 	Function.Intrinsic.String.Split(Variable.Local.sRet,"*!*",Variable.Local.sRet)
+	gui.Form1.txttoLoc.text(v.Local.sret(0))
+Function.Intrinsic.Control.EndIf
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("cmdfrombrowse_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdToLocBrowse_Click.End
+
+Program.Sub.Form4_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("LoadAudit_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+'check saved
+Function.Intrinsic.Control.If(V.Global.iSave, =, -1)
+	Function.Intrinsic.Control.CallSub(cmdasave_click)
+Function.Intrinsic.Control.EndIf
+gui.Form4..Visible(false)
+'reset for second run
+V.Global.iSave.Set(-1)
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("LoadAudit_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Form4_UnLoad.End
+
+Program.Sub.LoadAudit.Start
+F.Intrinsic.Control.SetErrorHandler("LoadAudit_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+'set the audit by textbox
+gui.Form4.txtAAuditBy.Text(v.Caller.User)
+'set the quantity on the screen as the quantity from the first screen
+gui.Form4.txtAQuantity.Text(v.Screen.Form1!txtQty.text)
+'set the location
+gui.form4.txtALocation.Text(v.Global.sToLoc.Trim)
+'set the bin
+gui.Form4.txtABin.Text(v.Global.sToBin.Trim)
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("LoadAudit_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.LoadAudit.End
+
+Program.Sub.cmdASave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdABinBrowse_Click_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+V.Local..BulkDeclareString(ssql, sFields, sValues, sReady, sNAChecked)
+V.Local.ddate.Declare(Date)
+V.Local.fqty.Declare(float)
+
+'close the form
+V.Local.fqty.Set(v.Screen.Form4!txtAQuantity.Text)
+gui.Form4..Visible(false)
+
+
+F.ODBC.Connection!conx.openrecordsetrw("rst","Select * from GCG_4131_Medset_Bin")
+	F.ODBC.conx!rst.AddNew
+	F.ODBC.Conx!rst.Set!TRANS_BY(V.Caller.User)
+	F.ODBC.Conx!rst.Set!METHOD(V.Screen.Form4!txtAMethod.text)
+	F.ODBC.Conx!rst.Set!RECORD_DATE(V.Ambient.now)
+	F.ODBC.Conx!rst.Set!RECORD_TIME(V.Ambient.now)
+	F.ODBC.Conx!rst.Set!QUANTITY(V.Global.iqty)
+	F.ODBC.Conx!rst.Set!COMMENTS(V.screen.form4!txtAcomments.text)
+	F.ODBC.Conx!rst.Set!BIN_NAME(V.Global.sDesc.Trim)
+	F.ODBC.Conx!rst.Set!LOCATION_FROM(V.Global.sFromLoc.Trim)
+	F.ODBC.Conx!rst.Set!LOCATION_TO(V.Global.stoLoc.Trim)
+	F.ODBC.Conx!rst.Set!FROM_BIN(V.Global.sFromBin.Trim)
+	F.ODBC.Conx!rst.Set!TO_BIN(V.Global.sToBin.Trim)
+	f.ODBC.Conx!rst.Set!TYPE("TRANS")
+	F.ODBC.Conx!rst.Set!PERSON(V.Global.sPerson)
+	F.ODBC.Conx!rst.Set!AUDIT_BY(V.Screen.Form4!txtAAuditBy.Text)
+	F.ODBC.Conx!rst.Set!BIN(V.Global.sToBin.Trim)
+	F.ODBC.Conx!rst.Set!STATUS(V.Global.sStatus)
+	'check to see which checkboxes are checked
+	f.Intrinsic.Control.If(v.Screen.Form4!chkAReady.Value,=,1)
+		'if surgery ready put a Y in the table
+		F.ODBC.Conx!rst.Set!FLAG_SURGREADY("Y")
+	f.Intrinsic.Control.Elseif(v.Screen.Form4!chkAReady.Value,=,0)
+		'otherwise put an N
+		F.ODBC.Conx!rst.Set!FLAG_SURGREADY("N")
+	f.Intrinsic.Control.EndIf
+	'check to see if NA was used
+	f.Intrinsic.Control.If(v.Screen.Form4!chkAUseNA.Value,=,1)
+		'if NA was used put NA in the table
+		F.ODBC.Conx!rst.Set!NAWASUSED("Y")
+	f.Intrinsic.Control.Elseif(v.Screen.Form4!chkAUseNA.Value,=,0)
+		'otherwise put an N
+		F.ODBC.Conx!rst.Set!NAWASUSED("N")
+	f.Intrinsic.Control.EndIf	
+	F.ODBC.conx!rst.Update
+F.ODBC.Conx!rst.Close
+
+V.Global.iSave.Set(0)
+'call the sub that writes the transfer and audit logs
+F.Intrinsic.Control.CallSub(transferaudittextfile)
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("cmdABinBrowse_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdASave_Click.End
+
+Program.Sub.chkAUseNA_Click.Start
+F.Intrinsic.Control.SetErrorHandler("_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'check to see if value is 1 or 0
+f.Intrinsic.Control.If(v.Screen.Form4!chkAUseNA.Value,=,1)
+	gui.Form4.txtAQuantity.Text("N/A")
+f.Intrinsic.Control.ElseIf(v.Screen.Form4!chkAUseNA.value,=,0)
+	gui.Form4.txtAQuantity.Text(v.Screen.Form1!txtQty.text)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.chkAUseNA_Click.End
+
+Program.Sub.TransferAuditTextFile.Start
+F.Intrinsic.Control.SetErrorHandler("TransferAuditTextFile_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+v.Local.sfileline.declare(string)
+v.Local.sfilefinal.Declare(string)
+v.Local.sfilename.Declare(string)
+v.Local.sfilepath.Declare(string)
+v.Local.bexists.Declare(boolean)
+v.Local.sfiledate.Declare(string)
+v.Local.sfiletime.Declare(string)
+v.Local.sexport.Declare(string)
+v.Local.sauditinfo.Declare(string)
+v.Local.stransferinfo.Declare(string)
+
+'f.Intrinsic.UI.InvokeWaitDialog("Generating transfer and audit text file...")
+
+'build the filepath
+F.Intrinsic.String.Build("{0}{1}",V.Caller.FilesDir,"\Bin Transfer and Audit Files",V.Local.sfilepath)
+
+'see if the folder exists if it doesn't create it
+F.Intrinsic.File.Exists(V.Local.sfilepath,V.Local.bexists)
+F.Intrinsic.Control.If(V.Local.bexists,=,False)
+	F.Intrinsic.File.CreateDir(V.Local.sfilepath)
+F.Intrinsic.Control.EndIf
+
+'set the time and date for the file
+V.Local.sfiledate.Set(V.Ambient.Date)
+F.Intrinsic.String.Format(V.Local.sfiledate,"MMDDYYYY",V.Local.sfiledate)
+V.Local.sfiletime.Set(V.Ambient.Time)
+F.Intrinsic.String.Format(V.Local.sfiletime,"HHMMSS",V.Local.sfiletime)
+
+'build the textfile path
+F.Intrinsic.String.Build("{0}\{1}{2}{3}{4}",V.local.sfilepath,V.local.sfiledate,V.local.sfiletime,v.Global.sBin.Trim,".txt",V.Local.sexport)
+
+'build the audit info
+f.Intrinsic.String.Build("BIN: {0}{1}Audit By: {2}{1}Quantity: {3}{1}Method/Ship Via: {4}{1}Comments: {5}{1}",v.global.sToBin.trim,v.ambient.newline,v.Screen.Form4!txtAAuditby.Text,v.Screen.Form4!txtAQuantity.Text,v.Screen.Form4!txtAMethod.Text,v.Screen.Form4!txtAcomments.Text,v.local.sauditinfo)
+
+'build the audit string
+f.Intrinsic.String.Build("{0}{1}{2}","Audit Information",v.ambient.newline,v.local.sauditinfo.trim,v.local.sauditinfo)
+
+'build the transfer info
+f.Intrinsic.String.Build("From BIN: {0}{1}To Bin: {2}{1}From Location: {3}{1}To Location: {4}{1}",v.Screen.Form1!txtFrom.Text,v.Ambient.NewLine,v.SCREEN.Form1!txtTo.Text,v.Screen.Form1!txtFromLoc.Text,v.screen.Form1!txttoLoc.Text,v.local.stransferinfo)
+
+'build the transfer string
+f.Intrinsic.String.Build("{1}{0}{1}{2}","Transfer Information",v.ambient.newline,v.local.stransferinfo.trim,v.local.stransferinfo)
+
+'combine audit and transfer info
+f.Intrinsic.String.Build("{0}{1}",v.Local.sauditinfo.Trim,v.Local.stransferinfo.Trim,v.Local.sfilefinal)
+
+'write the text file
+F.Intrinsic.File.String2File(V.Local.sexport,V.Local.sfilefinal)
+
+f.Intrinsic.UI.CloseWaitDialog
+
+f.Intrinsic.Control.CallSub(clearforms)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("TransferAuditTextFile_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.TransferAuditTextFile.End
+
+Program.Sub.ClearForms.Start
+F.Intrinsic.Control.SetErrorHandler("ClearForms_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+V.Local.iRet.Declare(Long)
+
+'clear the text on the first form
+gui.Form1.txtTo.Text("")
+gui.Form1.txtFrom.text("")
+gui.Form1.txtFromLoc.Text("")
+gui.Form1.txtQty.Text("")
+gui.Form1.txttoLoc.Text("")
+gui.Form1.ddlStatus.Text("")
+GUI.Form1.txtPerson.Text("Altus")
+'clear the text on the audit form
+gui.Form4.txtAAuditBy.text("")
+gui.Form4.txtABin.Text("")
+gui.Form4.txtALocation.Text("")
+gui.Form4.txtAMethod.Text("")
+gui.Form4.txtAQuantity.Text("")
+
+F.Intrinsic.UI.Msgbox("Transfer Complete")
+
+F.Intrinsic.Control.If(V.dataview.PART!BIN.exists,=,True)
+	F.data.dataview.close("PART","BIN")
+f.Intrinsic.Control.EndIf	
+
+'9/13/2017 Check If They Wanted The BIN Report Printed
+Function.Intrinsic.Control.If(V.Screen.Form4!chkPrint.Value,=,1)
+	Function.Intrinsic.Control.CallSub(printbinreport)
+Function.Intrinsic.Control.EndIf
+
+'9/13/2017 Ask the user if another transfer is required
+F.Intrinsic.UI.Msgbox("Is Another Transfer Required?", "", 4, V.Local.iRet)
+Function.Intrinsic.Control.If(V.Local.iRet, =, 6)
+	'display the form
+	GUI.Form1..Visible(true)
+Function.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ClearForms_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.ClearForms.End
+
+Program.Sub.PrintBinReport.Start
+F.Intrinsic.Control.SetErrorHandler("PrintBinReport_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+'Added 9/14/2017 Dawn Hughes
+'This will print the Bin Report- passing the Bin and Location only
+
+V.Local..BulkDeclareString(ssql, sMap, sTemp)
+V.Local..BulkDeclareLong(irpt, ilogid, ibirunid, iRet, iC)
+
+F.Intrinsic.UI.InvokeWaitDialog("Generating the report...")
+
+'get the BIRUNID and start logging
+f.Global.BI.GetRunID(V.Local.ibirunid)
+f.Global.BI.GetIDFromName("GCG_4131_MedSet_by_Bin.rpt",V.Local.irpt)
+f.Global.BI.StartLogging(V.Local.ibirunid,V.local.irpt,-1,"GCG_4131_MedSet_by_Bin",V.Local.ilogid)
+
+F.ODBC.Connection!Conx.Execute("Delete from GCG_4131_RPT_Bin")
+
+F.ODBC.Connection!ConX.Execute("Delete From ITEM_MASTER Where QUANTITY = '0.000000'")
+
+F.Intrinsic.String.Build("Select * From GCG_4131_MEDSET_BIN Where To_Bin = '{0}' And Location_To = '{1}'", V.Global.sToBin.Trim, V.Global.sToLoc.Trim, V.Local.ssql)
+F.Data.DataTable.CreateFromSQL("R", "conX", V.Local.ssql)
+
+F.Data.DataTable.SetValue("R", -1, "BIRUNID", V.Local.ibirunid)
+
+'because the datatable won't play nice
+F.Data.DataTable.AddExpressionColumn("R", "RTIME", "String", "[RECORD_TIME]")
+Function.Data.DataTable.AddColumn("R", "T", "String")
+F.Intrinsic.Control.For(V.Local.iC, 0, V.DataTable.R.RowCount--, 1)
+	V.Local.sTemp.Set(V.DataTable.R(V.Local.iC).RTIME!FieldValTrim)
+	F.Intrinsic.String.Replace(V.Local.sTemp, "PT", "", V.Local.sTemp)
+	F.Intrinsic.String.Replace(V.Local.sTemp, "H", ":", V.Local.sTemp)
+	F.Intrinsic.String.Replace(V.Local.sTemp, "M", ":", V.Local.sTemp)
+	F.Intrinsic.String.Replace(V.Local.sTemp, "S", "", V.Local.sTemp)
+	F.Data.DataTable.SetValue("R", V.Local.iC, "T", V.Local.sTemp)
+F.Intrinsic.Control.Next(V.Local.iC)
+
+'map to database
+V.Local.sMap.Set("BIN@!@BIN*!*AUDIT_BY@!@AUDIT_BY*!*QUANTITY@!@QUANTITY*!*RECORD_DATE@!@RECORD_DATE*!*METHOD@!@METHOD*!*COMMENTS@!@COMMENTS*!*BIN_NAME@!@BIN_NAME*!*FROM_BIN@!@FROM_BIN*!*TO_BIN@!@TO_BIN*!*LOCATION_FROM@!@LOCATION_FROM*!*LOCATION_TO@!@LOCATION_TO*!*NAWASUSED@!@NAWASUSED*!*FLAG_SURGREADY@!@FLAG_SURGREADY*!*TRANS_BY@!@TRANS_BY*!*BIRUNID@!@BIRUNID*!*TYPE@!@TYPE*!*T@!@RECORD_TIME")
+Function.Data.DataTable.SaveToDB("R", "conX", "GCG_4131_RPT_Bin", "", 128, V.Local.sMap)
+F.Data.DataTable.Close("R")
+
+F.Intrinsic.UI.CloseWaitDialog
+'print the report
+F.Global.BI.RunReportPreProcessor(v.Local.ibirunid,v.Local.ilogid,"BIRUNID",v.Local.ibirunid,"",-1,True,"",-1,"",-1,"","",V.Local.iRet)
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("PrintBinReport_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_MedSet_by_Bin.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	Function.Intrinsic.Control.CallSub(form4_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.PrintBinReport.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$WAW$}$7/15/2016 11:50:23 AM$}$False
+${$3$}$0$}$$}$-1$}$-1$}$$}$1/1/1900$}$Original customer was SMS Millcraft.
+
+This is a re-write of the original script due to many inconsistencies with the original.
+Program.Sub.Comments.End
