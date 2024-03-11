@@ -1,0 +1,964 @@
+Program.Sub.ScreenSU.Start
+Gui.Form1..Create
+Gui.Form1..Caption("Bin Transfer Report")
+Gui.Form1..Size(4740,4020)
+Gui.Form1..MinX(0)
+Gui.Form1..MinY(0)
+Gui.Form1..Position(0,0)
+Gui.Form1..BackColor(-2147483633)
+Gui.Form1..MaxButton(False)
+Gui.Form1..MinButton(False)
+Gui.Form1..MousePointer(0)
+Gui.Form1..Sizeable(False)
+Gui.Form1..Event(UnLoad,Form1_UnLoad)
+Gui.Form1.lblBenBin.Create(Label,"Bin",False,1290,255,0,225,1230,True,0,"Arial",8,-986896,0)
+Gui.Form1.chkAllBins.Create(CheckBox)
+Gui.Form1.chkAllBins.Size(1530,360)
+Gui.Form1.chkAllBins.Position(240,1890)
+Gui.Form1.chkAllBins.Caption("Include All Bins")
+Gui.Form1.chkAllBins.Event(Click,chkAllBins_Click)
+Gui.Form1.chkAllBins.Visible(False)
+Gui.Form1.txtBegBin.Create(TextBox,"",False,1215,300,0,225,1470,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.cmdBegBinBrowse.Create(Button)
+Gui.Form1.cmdBegBinBrowse.Size(405,345)
+Gui.Form1.cmdBegBinBrowse.Position(1590,1440)
+Gui.Form1.cmdBegBinBrowse.Caption("^")
+Gui.Form1.cmdBegBinBrowse.Event(Click,cmdBegBinBrowse_Click)
+Gui.Form1.cmdBegBinBrowse.Visible(False)
+Gui.Form1.cmdPrint.Create(Button)
+Gui.Form1.cmdPrint.Size(1215,480)
+Gui.Form1.cmdPrint.Position(3090,3030)
+Gui.Form1.cmdPrint.Caption("Print")
+Gui.Form1.cmdPrint.Event(Click,cmdPrint_Click)
+Gui.Form1.ddlReportType.Create(DropDownList)
+Gui.Form1.ddlReportType.Size(2025,330)
+Gui.Form1.ddlReportType.Position(210,585)
+Gui.Form1.ddlReportType.Event(Click,ddlReportType_Click)
+Gui.Form1.lblReportType.Create(Label,"Report Type",True,1935,255,0,195,270,True,0,"Arial",8,-986896,0)
+Gui.Form1.lblBegLoc.Create(Label,"Beginning Location",False,1935,255,0,240,1185,True,0,"Arial",8,-986896,0)
+Gui.Form1.txtbegLoc.Create(TextBox,"",False,1215,300,0,240,1470,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.cmdBegLocBrowse.Create(Button)
+Gui.Form1.cmdBegLocBrowse.Size(405,345)
+Gui.Form1.cmdBegLocBrowse.Position(1590,1455)
+Gui.Form1.cmdBegLocBrowse.Caption("^")
+Gui.Form1.cmdBegLocBrowse.Event(Click,cmdBegLocBrowse_Click)
+Gui.Form1.cmdBegLocBrowse.Visible(False)
+Gui.Form1.lblEndingLocation.Create(Label,"Ending Location",False,1935,255,0,2370,1185,True,0,"Arial",8,-986896,0)
+Gui.Form1.txtEndingLocation.Create(TextBox,"",False,1215,300,0,2340,1470,True,0,"Arial",8,-2147483643,1)
+Gui.Form1.cmdEndingLocBrowse.Create(Button)
+Gui.Form1.cmdEndingLocBrowse.Size(405,345)
+Gui.Form1.cmdEndingLocBrowse.Position(3720,1455)
+Gui.Form1.cmdEndingLocBrowse.Caption("^")
+Gui.Form1.cmdEndingLocBrowse.Event(Click,cmdEndingLocBrowse_Click)
+Gui.Form1.cmdEndingLocBrowse.Visible(False)
+Gui.Form1.chkAllLocs.Create(CheckBox)
+Gui.Form1.chkAllLocs.Size(1965,360)
+Gui.Form1.chkAllLocs.Position(90,1920)
+Gui.Form1.chkAllLocs.Caption("Include All Locations")
+Gui.Form1.chkAllLocs.Event(Click,chkAllLocs_Click)
+Gui.Form1.chkAllLocs.Visible(False)
+Gui.Form1.chkIncludeZero.Create(CheckBox)
+Gui.Form1.chkIncludeZero.Size(2100,510)
+Gui.Form1.chkIncludeZero.Position(2175,1845)
+Gui.Form1.chkIncludeZero.Caption("Include Zero Quantities")
+Gui.Form1.chkIncludeZero.Event(Click,chkIncludeZero_Click)
+Gui.Form1.chkIncludeZero.Visible(False)
+Gui.Form1.dtpFrom.Create(DatePicker)
+Gui.Form1.dtpFrom.Size(1935,285)
+Gui.Form1.dtpFrom.Position(165,2580)
+Gui.Form1.dtpFrom.Visible(False)
+Gui.Form1.dtpTo.Create(DatePicker)
+Gui.Form1.dtpTo.Size(1935,285)
+Gui.Form1.dtpTo.Position(2280,2580)
+Gui.Form1.dtpTo.Visible(False)
+Gui.Form1.lblFrom.Create(Label,"From",False,645,255,0,195,2370,True,0,"Arial",8,-2147483633,0)
+Gui.Form1.lblTo.Create(Label,"To",False,705,255,0,2355,2370,True,0,"Arial",8,-2147483633,0)
+Gui.Form1.chkAllDates.Create(CheckBox)
+Gui.Form1.chkAllDates.Size(1095,360)
+Gui.Form1.chkAllDates.Position(120,3015)
+Gui.Form1.chkAllDates.Caption("All Dates")
+Gui.Form1.chkAllDates.Event(Click,chkAllDates_Click)
+Gui.Form1.chkAllDates.Visible(False)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.Global.bAllBins.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Custom BIN Transfer Report preprocessor
+'Coded by: WAW
+'Date: 7/11/2016
+
+'open the conneciton
+F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,1800)
+
+'add the report types to the drop down
+gui.Form1.ddlReportType.AddItem("By Bin")
+gui.Form1.ddlReportType.AddItem("By Location")
+
+'display the form
+gui.Form1..Visible(true)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.cmdBegBinBrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdbegbin_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sret.Declare(String)
+
+'clear the checkbox
+gui.Form1.chkAllBins.Value(0)
+
+'set browser type ahead
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+Function.Intrinsic.UI.Browser(150,"",Variable.Local.sRet)
+
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+F.Intrinsic.Control.Else
+	'split the return
+	F.Intrinsic.String.Split(V.Local.sret,"*!*",V.Local.sret)
+	'set the bin number in the textbox
+	Gui.Form1.txtbegbin.Text(V.Local.sret(0))
+'	gui.Form1.txtEndingBin.Text(v.Local.sret(0))
+F.Intrinsic.Control.endif
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdbegbin_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdBegBinBrowse_Click.End
+
+Program.Sub.chkAllBins_Click.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'check to see if it has been checked
+f.Intrinsic.Control.If(v.Screen.Form1!chkAllBins.Value,=,1)
+	gui.Form1.txtBegBin.Text("")
+	gui.Form1.txtEndingBin.Text("")
+	gui.Form1.txtBegBin.Enabled(false)
+	gui.Form1.txtEndingBin.Enabled(false)
+	gui.Form1.chkIncludeZero.Visible(True)
+	v.Global.bAllBins.Set(True)
+f.Intrinsic.Control.Else
+	gui.Form1.txtBegBin.Enabled(True)
+	gui.Form1.txtEndingBin.Enabled(True)
+	gui.Form1.chkIncludeZero.Visible(True)
+	v.Global.bAllBins.Set(false)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.chkAllBins_Click.End
+
+Program.Sub.cmdPrint_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdPrint_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(string)
+v.Local.sallbins.Declare(string)
+v.Local.salllocs.Declare(string)
+v.Local.sallaudits.Declare(string)
+v.Local.sbegloc.Declare(string)
+v.Local.sendloc.Declare(string)
+v.Local.slocrange.Declare(string)
+v.Local.sbegbin.Declare(string)
+v.Local.sendbin.Declare(string)
+v.Local.sbinrange.Declare(string)
+v.Local.sbegaudit.Declare(string)
+v.Local.sendaudit.Declare(string)
+v.Local.sauditrange.Declare(string)
+v.Local.ibirunid.Declare(long)
+v.Local.irpt.Declare(long)
+v.Local.ilogid.Declare(long)
+v.Local.sparams.Declare(string)
+v.Local.svals.Declare(string)
+
+'check to make sure something was selected from the drop down list
+f.Intrinsic.Control.If(v.Screen.Form1!ddlReportType.Text,=,"By Bin")
+	'call the by bin sub
+	f.Intrinsic.Control.CallSub(bybin)
+f.Intrinsic.Control.ElseIf(v.Screen.Form1!ddlReportType.Text,=,"By Location")
+	'call the by loc sub
+	f.Intrinsic.Control.CallSub(bylocation)
+f.Intrinsic.Control.ElseIf(v.Screen.Form1!ddlReportType.Text,=,"")
+	'if blank force the user to select something
+	F.Intrinsic.UI.Msgbox("Please Select a Report Type")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdPrint_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdPrint_Click.End
+
+Program.Sub.Form1_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("form1_unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'close the connection
+F.ODBC.Connection!conx.Close
+
+'end the program
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("form1_unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+Program.Sub.Form1_UnLoad.End
+
+Program.Sub.cmdBegLocBrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("chkAllBins_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(string)
+v.Local.stitle.Declare(string)
+v.Local.iwidth.Declare(long)
+v.Local.sret.Declare(string)
+
+'clear the checkbox
+gui.Form1.chkAllLocs.Value(0)
+
+'set the hot type ahead
+f.Intrinsic.UI.Setbrowserhottypeahead(true)
+
+'set the titles
+f.Intrinsic.String.Split("Location","*!*",v.Local.stitle)
+f.Intrinsic.String.Split("2000","*!*",v.Local.iwidth)
+
+'create custom browser for audit by
+f.Intrinsic.UI.Browser("Select a Location","Conx","Select Distinct LOCATION From Bin_Master order by Location",v.Local.stitle,v.Local.iwidth,5000,5000,v.Local.sret)
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+ 	Function.Intrinsic.UI.Msgbox("No Location selected")
+f.Intrinsic.Control.Else
+	f.Intrinsic.String.Split(v.Local.sret,"*!*",v.Local.sret)
+	'set the beg and ending audit by
+	gui.Form1.txtbegLoc.Text(v.local.sret(0))
+	gui.Form1.txtEndingLocation.Text(v.Local.sret(0))
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("chkAllBins_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdBegLocBrowse_Click.End
+
+Program.Sub.cmdEndingLocBrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdBegLocBrowse_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(string)
+v.Local.stitle.Declare(string)
+v.Local.iwidth.Declare(long)
+v.Local.sret.Declare(string)
+
+'clear the checkbox
+gui.Form1.chkAllLocs.Value(0)
+
+'set the hot type ahead
+f.Intrinsic.UI.Setbrowserhottypeahead(true)
+
+'set the titles
+f.Intrinsic.String.Split("Location","*!*",v.Local.stitle)
+f.Intrinsic.String.Split("2000","*!*",v.Local.iwidth)
+
+'create custom browser for audit by
+f.Intrinsic.UI.Browser("Select a Location","Conx","Select Distinct LOCATION From Bin_Master order by Location",v.Local.stitle,v.Local.iwidth,5000,5000,v.Local.sret)
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+ 	Function.Intrinsic.UI.Msgbox("No Location selected")
+f.Intrinsic.Control.Else
+	f.Intrinsic.String.Split(v.Local.sret,"*!*",v.Local.sret)
+	'set the beg and ending audit by
+	gui.Form1.txtEndingLocation.Text(v.Local.sret(0))
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdBegLocBrowse_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdEndingLocBrowse_Click.End
+
+Program.Sub.chkAllLocs_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdEndingLocBrowse_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'check to see if it has been checked
+f.Intrinsic.Control.If(v.Screen.Form1!chkAllLocs.Value,=,1)
+	gui.Form1.txtbegLoc.Text("")
+	gui.Form1.txtEndingLocation.Text("")
+	gui.Form1.txtBegloc.Enabled(false)
+	gui.Form1.txtEndingLocation.Enabled(false)
+f.Intrinsic.Control.Else
+	gui.Form1.txtBegloc.Enabled(True)
+	gui.Form1.txtEndingLocation.Enabled(True)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdEndingLocBrowse_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.chkAllLocs_Click.End
+
+Program.Sub.ByBin.Start
+F.Intrinsic.Control.SetErrorHandler("ByBin_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(string)
+v.Local.sbin.Declare(string)
+v.Local.ibirunid.Declare(long)
+v.Local.irpt.Declare(long)
+v.Local.ilogid.Declare(long)
+v.Local.sparams.Declare(string)
+v.Local.svals.Declare(string)
+v.Local.sname.declare(String)
+v.Local.iret.Declare(long)
+V.Local.sDateTo.Declare(String)
+V.Local.sDateFrom.Declare(String)
+V.Local.iZero.Declare(Long, 0)
+v.Local.sbintitle.Declare(String)
+
+
+Function.Intrinsic.Control.If(v.Screen.Form1!chkAllDates.Value,=,0)
+'then not all dates
+	V.Local.sDateFrom.set(V.Screen.Form1!dtpFrom.Text)
+	V.Local.sDateTo.set(V.Screen.Form1!dtpTo.Text)	
+Function.Intrinsic.Control.EndIf
+'check to make sure a BIN has been selected
+f.Intrinsic.Control.If(v.Screen.Form1!txtBegBin.Text,=,"")
+f.Intrinsic.Control.AndIf(v.Screen.Form1!chkAllBins.Value,=,0)
+	'if blank force the user to select something
+	F.Intrinsic.UI.Msgbox("Please Select a BIN")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+'set the bin
+v.Local.sbin.Set(v.Screen.Form1!txtBegBin.Text)
+'close the form and program
+gui.Form1..Visible(false)
+'invoke wait dialog
+f.Intrinsic.UI.InvokeWaitDialog("Generating the report...")
+
+'get the BIRUNID and start logging
+f.Global.BI.GetRunID(v.Local.ibirunid)
+f.Global.BI.GetIDFromName("GCG_4131_MedSet_by_Bin.rpt",v.Local.irpt)
+f.Global.BI.StartLogging(v.Local.ibirunid,v.local.irpt,-1,"GCG_4131_MedSet_by_Bin",v.Local.ilogid)
+
+F.ODBC.Connection!Conx.Execute("Delete from GCG_4131_RPT_Bin")
+
+''start with the dates if statement
+Function.Intrinsic.Control.If(v.Screen.Form1!chkAllDates.Value,=,0)
+'then not all dates
+	'check to see if all bins was checked
+	F.Intrinsic.Control.If(v.Screen.Form1!chkAllBins.Value,=,1)
+		'check to see if the include 0 quantity bins is checked
+		f.Intrinsic.Control.If(v.Screen.Form1!chkIncludeZero.Value,=,1)
+			'update where quantity is anything
+			Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select distinct Bin_MASTER.Bin from Bin_MASTER Right Join  GCG_4131_Medset_Bin On GCG_4131_Medset_Bin.FROM_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.To_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.BIN= Bin_MASTER.Bin")
+			Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+				F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And RECORD_DATE between '{1}' and '{2}' ", Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.sDateFrom.PervasiveDate,V.Local.sDateTo.PervasiveDate, V.Local.ssql)
+				Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIN",Variable.ODBC.Conx!rst.FieldValTrim!BIN)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+				Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+				Function.Data.DataTable.Close("RPT")
+				Function.ODBC.Conx!rst.Movenext
+			F.Intrinsic.Control.Loop
+			F.ODBC.Conx!rst.Close
+			Function.Intrinsic.Control.Else 
+			'update only quantity > 0
+				Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select distinct Bin_MASTER.Bin from Bin_MASTER Right Join  GCG_4131_Medset_Bin On GCG_4131_Medset_Bin.FROM_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.To_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.BIN= Bin_MASTER.Bin")
+				Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+					F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where (FROM_BIN = '{0}' And Quantity > {3} OR TO_BIN = '{0}' And Quantity > {3} )and RECORD_DATE between '{1}' And '{2}'", Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.sDateFrom.PervasiveDate,V.Local.sDateTo.PervasiveDate,V.Local.iZero, V.Local.ssql)
+					Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+					Function.Data.DataTable.SetValue("RPT", -1, "BIN",Variable.ODBC.Conx!rst.FieldValTrim!BIN)
+					Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+					Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+					Function.Data.DataTable.Close("RPT")
+					Function.ODBC.Conx!rst.Movenext
+				F.Intrinsic.Control.Loop
+				F.ODBC.Conx!rst.Close
+		F.Intrinsic.Control.endif
+	F.Intrinsic.Control.Else 
+	'then not all bins
+		F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where FROM_BIN = '{0}' And RECORD_DATE between '{1}' and '{2}' OR TO_BIN = '{0}' And RECORD_DATE between '{1}' and '{2}'", V.Local.sbin,V.Local.sDateFrom.PervasiveDate,V.Local.sDateTo.PervasiveDate, V.Local.ssql)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIN",V.Local.sbin)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+		Function.Data.DataTable.Close("RPT")
+	F.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.Else 
+'then all dates- no need to account for dates
+	'check to see if all bins was checked
+	F.Intrinsic.Control.If(v.Screen.Form1!chkAllBins.Value,=,1)
+	'true-all bins
+		'check to see if the include 0 quantity bins is checked
+		F.Intrinsic.Control.If(v.Screen.Form1!chkIncludeZero.Value,=,1)
+		'true include 0
+			'update where quantity is anything
+			Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select distinct Bin_MASTER.Bin from Bin_MASTER Right Join  GCG_4131_Medset_Bin On GCG_4131_Medset_Bin.FROM_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.To_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.BIN= Bin_MASTER.Bin")
+			Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+				F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where FROM_BIN = '{0}' OR TO_BIN = '{0}' OR BIN = '{0}'", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.ssql)
+				Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIN",Variable.ODBC.Conx!rst.FieldValTrim!BIN)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+				Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+				Function.Data.DataTable.Close("RPT")
+				Function.ODBC.Conx!rst.Movenext
+			F.Intrinsic.Control.Loop
+			F.ODBC.Conx!rst.Close
+		Function.Intrinsic.Control.Else 
+		'do not include zero on hand
+			'update where quanitity is > 0
+			Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select distinct Bin_MASTER.Bin from Bin_MASTER Right Join  GCG_4131_Medset_Bin On GCG_4131_Medset_Bin.FROM_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.To_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.BIN= Bin_MASTER.Bin")
+			Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+				F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where FROM_BIN = '{0}' And QUANTITY > '{1}' OR TO_BIN = '{0}' And QUANTITY > '{1}' OR BIN = '{0}' And QUANTITY > '{1}'", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.iZero,V.Local.ssql)
+				Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIN",Variable.ODBC.Conx!rst.FieldValTrim!BIN)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+				Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin", "", 128)
+				Function.Data.DataTable.Close("RPT")
+				Function.ODBC.Conx!rst.Movenext
+			F.Intrinsic.Control.Loop
+			F.ODBC.Conx!rst.Close
+		Function.Intrinsic.Control.EndIf
+	Function.Intrinsic.Control.Else
+	'not all bins all dates
+		F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where FROM_BIN = '{0}' OR TO_BIN = '{0}' OR BIN = '{0}'", v.Local.sbin, V.Local.ssql)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIN",v.Local.sbin)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Local.ibirunid)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin", "", 128)
+		Function.Data.DataTable.Close("RPT")
+	Function.Intrinsic.Control.EndIf
+Function.Intrinsic.Control.EndIf
+
+'set the PARAMETERS
+v.Local.sparams.Set("BIRUNID")
+'print the report
+f.Intrinsic.UI.CloseWaitDialog
+f.Global.BI.RunReportPreProcessor(v.Local.ibirunid,v.Local.ilogid,v.Local.sparams,v.Local.ibirunid,"",-1,True,"",-1,"",-1,"","",V.Local.iRet)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ByBin_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.ByBin.End
+
+Program.Sub.ddlReportType_Click.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+gui.Form1.txtBegBin.Text("")
+gui.Form1.txtbegLoc.Text("")
+gui.Form1.txtEndingLocation.Text("")
+gui.Form1.chkAllBins.Value(0)
+gui.Form1.chkAllLocs.Value(0)
+gui.Form1.chkIncludeZero.Value(0)
+
+f.Intrinsic.Control.If(v.Screen.Form1!ddlReportType.Text,=,"By Bin")
+
+	gui.Form1.txtBegBin.Visible(true)
+	gui.Form1.lblBenBin.Visible(true)
+	gui.Form1.cmdBegBinBrowse.Visible(true)
+	gui.Form1.chkAllBins.Visible(true)
+		
+	gui.Form1.txtbegLoc.Visible(false)
+	gui.Form1.txtEndingLocation.Visible(false)
+	gui.Form1.lblBegLoc.Visible(false)
+	gui.Form1.lblEndingLocation.Visible(false)
+	gui.Form1.cmdBegLocBrowse.Visible(false)
+	gui.Form1.cmdEndingLocBrowse.Visible(false)
+	gui.Form1.chkAllLocs.Visible(false)
+	
+	gui.Form1.chkAllDates.Visible(TRUE)
+	gui.Form1.dtpFrom.Visible(TRUE)
+	gui.Form1.dtpTo.Visible(TRUE)
+	gui.Form1.lblFrom.Visible(TRUE)
+	gui.Form1.lblTo.Visible(TRUE)
+	
+f.Intrinsic.Control.ElseIf(v.Screen.Form1!ddlReportType.Text,=,"By Location")
+	gui.Form1.txtBegBin.Visible(false)
+	gui.Form1.lblBenBin.Visible(false)
+	gui.Form1.cmdBegBinBrowse.Visible(false)
+	gui.Form1.chkAllBins.Visible(false)
+		
+	gui.Form1.txtbegLoc.Visible(true)
+	gui.Form1.txtEndingLocation.Visible(true)
+	gui.Form1.lblBegLoc.Visible(true)
+	gui.Form1.lblEndingLocation.Visible(true)
+	gui.Form1.cmdBegLocBrowse.Visible(true)
+	gui.Form1.cmdEndingLocBrowse.Visible(true)
+	gui.Form1.chkAllLocs.Visible(true)
+	gui.Form1.chkIncludeZero.Visible(True)
+	
+	gui.Form1.chkAllDates.Visible(FALSE)
+	gui.Form1.dtpFrom.Visible(FALSE)
+	gui.Form1.dtpTo.Visible(FALSE)
+	gui.Form1.lblFrom.Visible(FALSE)
+	gui.Form1.lblTo.Visible(FALSE)
+	
+f.Intrinsic.Control.ElseIf(v.Screen.Form1!ddlReportType.Text,=,"")
+	gui.Form1.txtBegBin.Visible(false)
+	gui.Form1.lblBenBin.Visible(false)
+	gui.Form1.cmdBegBinBrowse.Visible(false)
+	gui.Form1.chkAllBins.Visible(false)
+	gui.Form1.txtbegLoc.Visible(false)
+	gui.Form1.txtEndingLocation.Visible(false)
+	gui.Form1.lblBegLoc.Visible(false)
+	gui.Form1.lblEndingLocation.Visible(false)
+	gui.Form1.cmdBegLocBrowse.Visible(false)
+	gui.Form1.cmdEndingLocBrowse.Visible(false)
+	gui.Form1.chkAllLocs.Visible(false)
+	gui.Form1.chkIncludeZero.Visible(false)
+
+	gui.Form1.chkAllDates.Visible(FALSE)
+	gui.Form1.dtpFrom.Visible(FALSE)
+	gui.Form1.dtpTo.Visible(FALSE)
+	gui.Form1.lblFrom.Visible(FALSE)
+	gui.Form1.lblTo.Visible(FALSE)
+	
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.ddlReportType_Click.End
+
+Program.Sub.chkIncludeZero_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdPrint_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdPrint_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.chkIncludeZero_Click.End
+
+Program.Sub.chkAllDates_Click.Start
+f.Intrinsic.Control.If(v.Screen.Form1!chkAllDates.Value,=,1)'then checked
+	Gui.Form1.dtpFrom.Visible(False)
+	Gui.Form1.lblFrom.Visible(False)
+	Gui.Form1.dtpTo.Visible(False)
+	Gui.Form1.lblTo.Visible(False)
+Function.Intrinsic.Control.ElseIf(v.Screen.Form1!chkAllDates.Value,=,0)
+	Gui.Form1.dtpFrom.Visible(True)
+	Gui.Form1.lblFrom.Visible(True)
+	Gui.Form1.dtpTo.Visible(True)
+	Gui.Form1.lblTo.Visible(True)
+Function.Intrinsic.Control.EndIf
+Program.Sub.chkAllDates_Click.End
+
+Program.Sub.LocationRPT1.Start
+F.Intrinsic.Control.SetErrorHandler("ByLocation_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+V.Local.iZero.Declare(Long,0)
+V.Local.ssql.Declare(String)
+V.Local.sAudit.Declare(String)
+v.Local.sTrans.Declare(String)
+V.Local.sLoc.Declare(String)
+V.Local.sAudit.Set("AUDIT")
+V.Local.sTrans.Set("TRANS")
+V.Local.sReadysql.Declare(String)
+V.Local.sReady.Declare(String)
+V.Local.bZero.Declare(Boolean)
+V.Local.bZero.Set(False)
+V.Local.bExists.Declare(Boolean)
+V.Local.bExists.Set(False)
+
+' ALL locations
+F.Intrinsic.Control.If(v.Screen.Form1!chkIncludeZero.Value,=,1)
+	'include all QTY
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select Distinct BIN from GCG_4131_Medset_Bin")
+	Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+
+	'find which ready value is higher the program uses Y or N
+	F.Intrinsic.String.Build("Select Top 1 FLAG_SURGREADY From GCG_4131_Medset_Bin Where BIN = '{0}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sReadysql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstReady", V.Local.sReadysql)
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstReady.EOF, <>, TRUE)
+		V.Local.sReady.Set(Variable.ODBC.Conx!rstReady.FieldValTrim!FLAG_SURGREADY)
+	Function.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rstReady.Close
+	
+	F.Intrinsic.String.Build("Select top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And TYPE = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sTrans,V.Local.ssql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+	
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+		V.Local.bExists.Set(TRUE)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.local.ssql)
+		V.Local.sLoc.Set(Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+		Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+		Function.Data.DataTable.Close("RPT")
+		
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.Conx!rstLoc.Close
+	
+	F.Intrinsic.String.Build("Select top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where TYPE = '{0}'  And BIN = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", V.Local.sAudit, Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.iZero,V.Local.ssql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+	
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.local.ssql)
+		
+		Function.Intrinsic.Control.If(V.Local.bExists, =, TRUE)
+			Function.Data.DataTable.SetValue("RPT", -1, "LOCATION_TO",V.Local.sLoc)
+		Function.Intrinsic.Control.EndIf
+		
+		V.Local.bExists.Set(False)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+		Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+		Function.Data.DataTable.Close("RPT")
+		
+	Function.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rstLoc.Close
+	
+	Function.ODBC.Conx!rst.Movenext
+	F.Intrinsic.Control.Loop
+	F.ODBC.Conx!rst.Close
+
+F.Intrinsic.Control.Else
+	'then not zero
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rst", "Select Distinct BIN from GCG_4131_Medset_Bin")
+	Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+
+	'find which ready value is higher the program uses Y or N
+	F.Intrinsic.String.Build("Select Top 1 FLAG_SURGREADY From GCG_4131_Medset_Bin Where BIN = '{0}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sReadysql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstReady", V.Local.sReadysql)
+	
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstReady.EOF, <>, TRUE)
+		V.Local.sReady.Set(Variable.ODBC.Conx!rstReady.FieldValTrim!FLAG_SURGREADY)
+	Function.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rstReady.Close
+	
+	F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}'  And QUANTITY > '{1}' And TYPE = '{2}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.iZero,V.Local.sTrans ,V.Local.ssql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+	
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+		V.Local.bExists.Set(TRUE)
+		V.Local.sLoc.Set(Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+		Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+		Function.Data.DataTable.Close("RPT")
+		
+	Function.Intrinsic.Control.EndIf
+	Function.ODBC.Conx!rstLoc.Close
+	
+	F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}'  And TYPE = '{1}' And QUANTITY > '{2}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.sAudit,V.Local.iZero,V.Local.ssql)
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+	
+	Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+		Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.local.ssql)
+		
+		Function.Intrinsic.Control.If(V.Local.bExists, =, TRUE)
+			Function.Data.DataTable.SetValue("RPT", -1, "LOCATION_TO",V.Local.sLoc)
+		Function.Intrinsic.Control.EndIf
+		
+		V.Local.bExists.Set(False)
+		Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+		Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+		Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+		Function.Data.DataTable.Close("RPT")
+	Function.Intrinsic.Control.EndIf
+	F.ODBC.Conx!rstLoc.Close
+	
+	Function.ODBC.Conx!rst.Movenext
+	F.Intrinsic.Control.Loop
+	F.ODBC.Conx!rst.Close
+	
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ByLocation_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.LocationRPT1.End
+
+Program.Sub.LocationRPT2.Start
+V.Local.ssql.Declare(String)
+V.Local.iZero.Declare(Long, 0)
+V.Local.sLoc.Declare(String)
+v.Local.sTrans.Declare(String)
+V.Local.sAudit.Declare(String)
+V.Local.sAudit.Set("AUDIT")
+V.Local.sTrans.Set("TRANS")
+V.Local.sInsql.Declare(String)
+V.Local.sReadysql.Declare(String)
+V.Local.sReady.Declare(String)
+V.Local.bZero.Declare(Boolean)
+V.Local.bZero.Set(False)
+
+'not all locations 
+'check to see if the include 0 quantity bins is checked
+F.Intrinsic.Control.If(v.Screen.Form1!chkIncludeZero.Value,=,1)
+	'include all QTY
+	F.Intrinsic.String.Build("Select Distinct BIN from GCG_4131_Medset_Bin Where LOCATION_TO Between '{0}' And '{1}' order by RECORD_Date, RECORD_TIME",V.Args.begLoc,v.Args.endLoc,v.Local.ssql )
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rst",V.Local.ssql )
+	
+	Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+	
+		'find which ready value is higher the program uses Y or N
+		F.Intrinsic.String.Build("Select Top 1 FLAG_SURGREADY From GCG_4131_Medset_Bin Where BIN = '{0}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sReadysql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstReady", V.Local.sReadysql)
+		
+		Function.Intrinsic.Control.If(V.ODBC.Conx!rstReady.EOF, <>, TRUE)
+			V.Local.sReady.Set(Variable.ODBC.Conx!rstReady.FieldValTrim!FLAG_SURGREADY)
+		Function.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstReady.Close
+	
+		F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And TYPE = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.sTrans ,V.Local.ssql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+		
+		F.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF,=,False)
+		
+			F.Intrinsic.String.Build("Select Bin, LOCATION_TO From GCG_4131_Medset_Bin Where Bin = '{0}' And LOCATION_TO = '{1}' And Location_TO Between '{2}' And '{3}'", Variable.ODBC.Conx!rstLoc.FieldValTrim!BIN, Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO,V.Args.begLoc,v.Args.endLoc, V.Local.sInsql)
+			Function.ODBC.Connection!Conx.OpenRecordsetRO("rstInLoc", V.Local.sInsql)
+			
+			Function.Intrinsic.Control.If(V.ODBC.Conx!rstInLoc.EOF, <> , TRUE)			
+				Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+				V.Local.sLoc.Set(Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO)
+				Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+				Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+				Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+				Function.Data.DataTable.Close("RPT")	
+				
+			F.Intrinsic.Control.EndIf
+			F.ODBC.Conx!rstInLoc.Close
+				
+		F.Intrinsic.Control.EndIf		
+		F.ODBC.Conx!rstLoc.Close
+			
+		F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And TYPE = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sAudit,V.Local.ssql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc",V.Local.ssql )	
+		
+		Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+			Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+			Function.Data.DataTable.SetValue("RPT", -1, "LOCATION_TO",V.Local.sLoc)
+			Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+			Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+			Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+			Function.Data.DataTable.Close("RPT")
+			
+		Function.Intrinsic.Control.EndIf	
+		F.ODBC.Conx!rstLoc.Close			
+	
+	Function.ODBC.Conx!rst.Movenext
+	F.Intrinsic.Control.Loop
+	F.ODBC.Conx!rst.Close
+	
+F.Intrinsic.Control.Else
+	'then not zero
+	F.Intrinsic.String.Build("Select Distinct BIN from GCG_4131_Medset_Bin Where LOCATION_TO Between '{0}' And '{1}' order by RECORD_Date, RECORD_TIME",V.Args.begLoc,v.Args.endLoc,v.Local.ssql )
+	Function.ODBC.Connection!Conx.OpenRecordsetRO("rst",V.Local.ssql )
+	
+	Function.Intrinsic.Control.DoUntil(V.ODBC.Conx!rst.EOF, = , TRUE)
+	
+		'find which ready value is higher the program uses Y or N
+		F.Intrinsic.String.Build("Select Top 1 FLAG_SURGREADY From GCG_4131_Medset_Bin Where BIN = '{0}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sReadysql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstReady", V.Local.sReadysql)
+		
+		Function.Intrinsic.Control.If(V.ODBC.Conx!rstReady.EOF, <>, TRUE)
+			V.Local.sReady.Set(Variable.ODBC.Conx!rstReady.FieldValTrim!FLAG_SURGREADY)
+		Function.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstReady.Close
+		
+		F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And TYPE = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN,V.Local.sTrans,V.Local.ssql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc", V.Local.ssql)
+		
+		F.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF,=,False)
+			
+			F.Intrinsic.String.Build("Select Bin, LOCATION_TO From GCG_4131_Medset_Bin Where Bin = '{0}' And LOCATION_TO = '{1}' And Location_TO Between '{2}' And '{3}' And QUANTITY > '{4}'", Variable.ODBC.Conx!rstLoc.FieldValTrim!BIN, Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO,V.Args.begLoc,v.Args.endLoc, V.Local.iZero,V.Local.sInsql)
+			Function.ODBC.Connection!Conx.OpenRecordsetRO("rstInLoc", V.Local.sInsql)
+			
+			Function.Intrinsic.Control.If(V.ODBC.Conx!rstInLoc.EOF, <> , TRUE)			
+					V.Local.bZero.Set(TRUE)
+					Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+					V.Local.sLoc.Set(Variable.ODBC.Conx!rstLoc.FieldValTrim!LOCATION_TO)
+					Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+					Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+					Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+					Function.Data.DataTable.Close("RPT")
+					
+			F.Intrinsic.Control.EndIf
+			F.ODBC.Conx!rstInLoc.Close
+			
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstLoc.Close		
+		
+		F.Intrinsic.String.Build("Select Top 1 BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME, STATUS, PERSON From GCG_4131_Medset_Bin where BIN = '{0}' And TYPE = '{1}' Order by RECORD_DATE desc, RECORD_TIME desc", Variable.ODBC.Conx!rst.FieldValTrim!BIN, V.Local.sAudit,V.Local.ssql)
+		Function.ODBC.Connection!Conx.OpenRecordsetRO("rstLoc",V.Local.ssql )
+		
+		Function.Intrinsic.Control.If(V.ODBC.Conx!rstLoc.EOF, <> , TRUE)
+			Function.Data.DataTable.CreateFromSQL("RPT", "Conx", V.Local.ssql)
+			
+			Function.Intrinsic.Control.If(V.Local.bZero, =, TRUE)
+				Function.Data.DataTable.SetValue("RPT", -1, "LOCATION_TO",V.Local.sLoc)
+			Function.Intrinsic.Control.EndIf
+			
+			V.Local.bZero.Set(FALSE)
+			Function.Data.DataTable.SetValue("RPT", -1, "BIRUNID",v.Args.BIRUNID)
+			Function.Data.DataTable.SetValue("RPT", -1, "FLAG_SURGREADY",V.Local.sReady)
+			Function.Data.DataTable.SaveToDB("RPT", "Conx", "GCG_4131_RPT_Bin","", 128)
+			Function.Data.DataTable.Close("RPT")
+		Function.Intrinsic.Control.EndIf
+		F.ODBC.Conx!rstLoc.Close
+		
+	Function.ODBC.Conx!rst.Movenext
+	F.Intrinsic.Control.Loop
+	
+	F.ODBC.Conx!rst.Close
+Function.Intrinsic.Control.EndIf	
+Program.Sub.LocationRPT2.End
+
+Program.Sub.ByLocation.Start
+F.Intrinsic.Control.SetErrorHandler("ByLocation_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ssql.Declare(string)
+v.Local.sbegloc.Declare(string)
+v.Local.ibirunid.Declare(long)
+v.Local.irpt.Declare(long)
+v.Local.ilogid.Declare(long)
+v.Local.sparams.Declare(string)
+v.Local.svals.Declare(string)
+v.Local.iret.Declare(long)
+v.Local.sendloc.Declare(String)
+
+'check to make sure a Locations has been selected
+f.Intrinsic.Control.If(v.Screen.Form1!txtbegLoc.Text,=,"")
+f.Intrinsic.Control.AndIf(v.Screen.Form1!chkAllLocs.Value,=,0)
+	'if blank force the user to select something
+	F.Intrinsic.UI.Msgbox("Please Select a Location")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+v.Local.sbegloc.set(v.Screen.Form1!txtbegLoc.Text)
+v.Local.sendloc.Set(v.Screen.Form1!txtEndingLocation.Text)
+'close the form and program
+gui.Form1..Visible(false)
+
+'invoke wait dialog
+f.Intrinsic.UI.InvokeWaitDialog("Generating the report...")
+'get the BIRUNID and start logging
+f.Global.BI.GetRunID(v.Local.ibirunid)
+f.Global.BI.GetIDFromName("GCG_4131_MedSet_by_Loc.rpt",v.Local.irpt)
+f.Global.BI.StartLogging(v.Local.ibirunid,v.local.irpt,-1,"GCG_4131_MedSet_by_Loc",v.Local.ilogid)
+F.ODBC.Connection!Conx.Execute("Delete from GCG_4131_RPT_Bin")
+
+Function.Intrinsic.Control.CallSub(NotAllDates,"BIRUNID", v.Local.ibirunid,"begLoc",v.Local.sbegloc,"endLoc",v.Local.sendloc)
+
+'set the PARAMETERS
+v.Local.sparams.Set("BIRUNID")
+'print the report
+f.Global.BI.RunReportPreProcessor(v.Local.ibirunid,v.Local.ilogid,v.Local.sparams,v.Local.ibirunid,"",-1,True,"",-1,"",-1,"","",V.Local.iRet)
+f.Intrinsic.UI.CloseWaitDialog	
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ByLocation_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Report.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.ByLocation.End
+
+Program.Sub.NotAllDates.Start
+F.Intrinsic.Control.If(v.Screen.Form1!chkAlllocs.Value,=,1)
+	'all locations
+	Function.Intrinsic.Control.CallSub(locationrpt1,"BIRUNID", v.Args.BIRUNID)
+F.Intrinsic.Control.ElseIf(v.Screen.Form1!chkAlllocs.Value,<>,1)
+	'not all locations 
+	Function.Intrinsic.Control.CallSub(locationrpt2,"BIRUNID", v.Args.BIRUNID,"begLoc",v.Args.begLoc,"endLoc",v.Args.endLoc)
+F.Intrinsic.Control.EndIf
+Program.Sub.NotAllDates.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$WAW$}$7/15/2016 2:42:37 PM$}$False
+${$3$}$0$}$$}$0$}$-1$}$$}$12:00:00 AM$}$s
+Program.Sub.Comments.End
