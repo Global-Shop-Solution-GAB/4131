@@ -1,0 +1,253 @@
+Program.Sub.ScreenSU.Start
+Gui.Form..Create
+Gui.Form..Caption("Audit Transaction")
+Gui.Form..Size(4800,6630)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..BackColor(-2147483633)
+Gui.Form..MousePointer(0)
+Gui.Form..Sizeable(False)
+Gui.Form..Event(UnLoad,Form_UnLoad)
+Gui.Form.lblBin.Create(Label,"Bin",True,675,255,0,225,300,True,0,"Arial",8,-986896,0)
+Gui.Form.txtAuditBy.Create(TextBox,"",True,1755,300,0,225,1380,True,0,"Arial",8,-2147483643,1)
+Gui.Form.lblAuditBy.Create(Label,"Audit By",True,1935,255,0,195,1155,True,0,"Arial",8,-986896,0)
+Gui.Form.txtqty.Create(TextBox,"",True,1755,300,0,2355,1410,True,0,"Arial",8,-2147483643,1)
+Gui.Form.lblQuantity.Create(Label,"Quantity",True,1935,255,0,2340,1185,True,0,"Arial",8,-986896,0)
+Gui.Form.lblMethod.Create(Label,"Method/Ship Via",True,1935,255,0,150,2535,True,0,"Arial",8,-986896,0)
+Gui.Form.txtMethod.Create(TextBox,"",True,4200,300,0,165,2775,True,0,"Arial",8,-2147483643,1)
+Gui.Form.mltxtcomments.Create(TextboxM)
+Gui.Form.mltxtcomments.Size(4170,1665)
+Gui.Form.mltxtcomments.Position(180,3570)
+Gui.Form.lblComments.Create(Label,"Comments",True,1935,255,0,180,3315,True,0,"Arial",8,-986896,0)
+Gui.Form.cmdSave.Create(Button)
+Gui.Form.cmdSave.Size(1200,510)
+Gui.Form.cmdSave.Position(165,5415)
+Gui.Form.cmdSave.Caption("Save")
+Gui.Form.cmdSave.Event(Click,cmdSave_Click)
+Gui.Form.txtABin.Create(TextBox,"",True,1680,300,0,240,555,True,0,"Arial",8,-2147483643,1)
+Gui.Form.cmdBinBrowse.Create(Button)
+Gui.Form.cmdBinBrowse.Size(480,375)
+Gui.Form.cmdBinBrowse.Position(2040,525)
+Gui.Form.cmdBinBrowse.Caption("^")
+Gui.Form.cmdBinBrowse.Event(Click,cmdBinBrowse_Click)
+Gui.Form.chkAReady.Create(CheckBox)
+Gui.Form.chkAReady.Size(1560,360)
+Gui.Form.chkAReady.Position(225,1965)
+Gui.Form.chkAReady.Caption("Surgery Ready?")
+Gui.Form.chkAUseNA.Create(CheckBox)
+Gui.Form.chkAUseNA.Size(1905,360)
+Gui.Form.chkAUseNA.Position(2355,1980)
+Gui.Form.chkAUseNA.Caption("Use N/A for Quantity")
+Gui.Form.lblLocation.Create(Label,"Location",True,1935,255,0,2820,345,True,0,"Arial",8,-2147483633,0)
+Gui.Form.txt1.Create(TextBox,"",True,1215,300,0,2850,570,True,0,"Arial",8,-2147483643,1)
+Program.Sub.ScreenSU.End
+
+Variable.Global.sDesc.Declare(String)
+Variable.Global.sBin.Declare(String)
+Variable.Global.sLoc.Declare(String)
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Saves audit information
+'Coded by: WAW
+'Date: 7/29/2016
+
+'open the conneciton
+F.ODBC.Connection!Conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass,1800)
+
+'set the audit by textbox
+gui.Form.txtAuditBy.Text(v.Caller.User)
+
+'display the form
+gui.Form..Visible(true)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Audit.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.Form_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'close the connection
+F.ODBC.Connection!conx.Close
+
+'end the program
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Audit.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Form_UnLoad.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("Form_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.ddate.Declare(date)
+v.Local.ssql.Declare(string)
+v.Local.fqty.Declare(float)
+
+v.Local.fqty.Set(v.Screen.Form!txtQty.Text)
+
+'check to make sure to/from bins were selected
+F.Intrinsic.Control.If(V.Screen.Form!txtABin.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select a Bin")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+'Bin Validation
+F.Intrinsic.String.Build("Select * from GCG_4131_Medset_Bin where BIN <> '{0}'","",V.Local.ssql)
+F.ODBC.Connection!conx.openrecordsetrw("rst",V.Local.ssql)
+	F.ODBC.conx!rst.AddNew
+	F.ODBC.Conx!rst.Set!METHOD(V.Screen.Form!txtMethod.text)
+	F.ODBC.Conx!rst.Set!RECORD_DATE(V.Ambient.now)
+	F.ODBC.Conx!rst.Set!RECORD_TIME(V.Ambient.now)
+	F.ODBC.conx!rst.Set!AUDIT_BY(V.screen.Form!txtAuditBy.text)
+	F.ODBC.Conx!rst.Set!QUANTITY(V.screen.Form!txtQty.Text)
+	F.ODBC.Conx!rst.Set!COMMENTS(V.screen.form!mltxtComments.text)
+	F.ODBC.Conx!rst.Set!BIN_NAME(V.Global.sDesc.Trim)
+	F.ODBC.Conx!rst.Set!LOCATION_FROM(V.Global.sLoc.Trim)
+	F.ODBC.Conx!rst.Set!LOCATION_TO(V.Global.sLoc.Trim)
+	f.ODBC.Conx!rst.Set!BIN(v.Global.sBin.Trim)
+	f.ODBC.Conx!rst.Set!TYPE("AUDIT")
+	'check to see which checkboxes are checked
+	f.Intrinsic.Control.If(v.Screen.Form!chkAReady.Value,=,1)
+		'if surgery ready put a Y in the table
+		F.ODBC.Conx!rst.Set!FLAG_SURGREADY("Y")
+	f.Intrinsic.Control.Elseif(v.Screen.Form!chkAReady.Value,=,0)
+		'otherwise put an N
+		F.ODBC.Conx!rst.Set!FLAG_SURGREADY("N")
+	f.Intrinsic.Control.EndIf
+	'check to see if NA was used
+	f.Intrinsic.Control.If(v.Screen.Form!chkAUseNA.Value,=,1)
+		'if NA was used put NA in the table
+		F.ODBC.Conx!rst.Set!NAWASUSED("Y")
+	f.Intrinsic.Control.Elseif(v.Screen.Form!chkAUseNA.Value,=,0)
+		'otherwise put an N
+		F.ODBC.Conx!rst.Set!NAWASUSED("N")
+	f.Intrinsic.Control.EndIf	
+	F.ODBC.conx!rst.Update
+F.ODBC.Conx!rst.Close
+
+'inform user that audit is complete
+f.Intrinsic.Control.CallSub(finish)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Form_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Audit.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.cmdBinBrowse_Click.Start
+F.Intrinsic.Control.SetErrorHandler("_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+v.Local.sret.Declare(string)
+v.Local.ssql.Declare(string)
+
+'set browser type ahead
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+Function.Intrinsic.UI.Browser(150,"",Variable.Local.sRet)
+
+Function.Intrinsic.Control.If(Variable.Local.sRet,"=","***CANCEL***")
+F.Intrinsic.Control.Else
+	'split the return
+	F.Intrinsic.String.Split(V.Local.sret,"*!*",V.Local.sret)
+	'set the bin
+	gui.Form.txtABin.Text(v.Local.sret(0))
+	gui.Form.txt1.Text(v.Local.sret(1))
+	v.Global.sLoc.Set(v.Local.sret(1).Trim)
+	v.Global.sBin.Set(v.Local.sret(0).Trim)
+	v.Global.sDesc.Set(v.Local.sret(2).Trim)
+f.Intrinsic.Control.EndIf
+
+'get the quantity for that bin
+f.Intrinsic.String.Build("Select SUM(QUANTITY) as QTY from V_ITEM_MASTER where BIN = '{0}' and LOCATION = '{1}'",v.Global.sBin.Trim,v.Global.sLoc.Trim,v.Local.ssql)
+F.ODBC.Connection!conx.openrecordsetro("rstqty",V.Local.ssql)
+f.Intrinsic.Control.If(v.ODBC.conx!rstqty.EOF,=,false)
+	'set the quantity
+	gui.Form.txtqty.Text(v.ODBC.Conx!rstqty.FieldValTrim!QTY)
+f.Intrinsic.Control.EndIf
+f.ODBC.Conx!rstqty.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Audit.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form_unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.cmdBinBrowse_Click.End
+
+Program.Sub.Finish.Start
+F.Intrinsic.Control.SetErrorHandler("Finish_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'inform user its complete
+f.Intrinsic.UI.Msgbox("Audit Complete")
+
+gui.Form.txtAuditBy.Text("")
+gui.Form.txtABin.Text("")
+gui.Form.txt1.Text("")
+gui.Form.txtMethod.Text("")
+gui.Form.txtqty.Text("")
+gui.Form.mltxtcomments.Text("")
+gui.Form.chkAReady.Value(0)
+gui.Form.chkAUseNA.Value(0)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Finish_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Audit.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub(form_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Finish.End
+
+Program.Sub.Comments.Start
+${$0$}$GCG_4131_Bin_Audit.g2u$}$WAW$}$7/29/2016 12:38:26 PM$}$False
+${$3$}$0$}$$}$-1$}$-1$}$$}$1/1/1900$}$Original customer was SMS Millcraft.
+
+This is a re-write of the original script due to many inconsistencies with the original.
+Program.Sub.Comments.End
