@@ -1,0 +1,735 @@
+Program.Sub.ScreenSU.Start
+gui.SS_Form1..create
+gui.SS_Form1..caption("Bin Status")
+gui.SS_Form1..size(6160,4810)
+gui.SS_Form1..minx(0)
+gui.SS_Form1..miny(0)
+gui.SS_Form1..position(0,0)
+gui.SS_Form1..event(unload,ss_form1_unload)
+gui.SS_Form1..alwaysontop(False)
+gui.SS_Form1..fontname("Arial")
+gui.SS_Form1..fontsize(8)
+gui.SS_Form1..forecolor(0)
+gui.SS_Form1..fontstyle(,,,,)
+gui.SS_Form1..BackColor(-2147483633)
+gui.SS_Form1..controlbox(True)
+gui.SS_Form1..maxbutton(False)
+gui.SS_Form1..minbutton(False)
+gui.SS_Form1..mousepointer(0)
+gui.SS_Form1..moveable(True)
+gui.SS_Form1..sizeable(False)
+gui.SS_Form1..ShowInTaskBar(True)
+gui.SS_Form1..titlebar(True)
+gui.SS_Form1.lbl_txtBegBin.create(label,"Beginning Bin",True,1800,200,1,100,135,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_txtBegBin.SetInternationalID(60700)
+gui.SS_Form1.lbl_txtBegBin.defaultvalue("")
+gui.SS_Form1.lbl_txtBegBin.controlgroup(0)
+gui.SS_Form1.txtBegBin.create(textbox,"",True,1800,330,0,100,335,True,0,Arial,8,16777215,1)
+gui.SS_Form1.txtBegBin.event(gotfocus,txtbegbin_gotfocus)
+gui.SS_Form1.txtBegBin.event(lostfocus,txtbegbin_lostfocus)
+gui.SS_Form1.txtBegBin.defaultvalue("")
+gui.SS_Form1.txtBegBin.controlgroup(0)
+gui.SS_Form1.cmd_txtBegBin.create(button)
+gui.SS_Form1.cmd_txtBegBin.caption("^")
+gui.SS_Form1.cmd_txtBegBin.visible(True)
+gui.SS_Form1.cmd_txtBegBin.size(330,330)
+gui.SS_Form1.cmd_txtBegBin.zorder(0)
+gui.SS_Form1.cmd_txtBegBin.position(1985,335)
+gui.SS_Form1.cmd_txtBegBin.enabled(True)
+gui.SS_Form1.cmd_txtBegBin.fontname("Arial")
+gui.SS_Form1.cmd_txtBegBin.fontsize(8)
+gui.SS_Form1.cmd_txtBegBin.event(click,cmd_txtbegbin_click)
+gui.SS_Form1.cmd_txtBegBin.defaultvalue("")
+gui.SS_Form1.cmd_txtBegBin.controlgroup(0)
+gui.SS_Form1.lbl_txtEndBin.create(label,"Ending Bin",True,1800,200,1,2455,135,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_txtEndBin.SetInternationalID(212500)
+gui.SS_Form1.lbl_txtEndBin.defaultvalue("")
+gui.SS_Form1.lbl_txtEndBin.controlgroup(0)
+gui.SS_Form1.txtEndBin.create(textbox,"",True,1800,330,0,2455,335,True,0,Arial,8,16777215,1)
+gui.SS_Form1.txtEndBin.event(gotfocus,txtendbin_gotfocus)
+gui.SS_Form1.txtEndBin.defaultvalue("")
+gui.SS_Form1.txtEndBin.controlgroup(0)
+gui.SS_Form1.cmd_txtEndBin.create(button)
+gui.SS_Form1.cmd_txtEndBin.caption("^")
+gui.SS_Form1.cmd_txtEndBin.visible(True)
+gui.SS_Form1.cmd_txtEndBin.size(330,330)
+gui.SS_Form1.cmd_txtEndBin.zorder(0)
+gui.SS_Form1.cmd_txtEndBin.position(4340,335)
+gui.SS_Form1.cmd_txtEndBin.enabled(True)
+gui.SS_Form1.cmd_txtEndBin.fontname("Arial")
+gui.SS_Form1.cmd_txtEndBin.fontsize(8)
+gui.SS_Form1.cmd_txtEndBin.event(click,cmd_txtendbin_click)
+gui.SS_Form1.cmd_txtEndBin.defaultvalue("")
+gui.SS_Form1.cmd_txtEndBin.controlgroup(0)
+gui.SS_Form1.chkAllBins.create(checkbox)
+gui.SS_Form1.chkAllBins.caption("All Bins")
+gui.SS_Form1.chkAllBins.visible(True)
+gui.SS_Form1.chkAllBins.size(1800,300)
+gui.SS_Form1.chkAllBins.zorder(0)
+gui.SS_Form1.chkAllBins.position(100,670)
+gui.SS_Form1.chkAllBins.enabled(True)
+gui.SS_Form1.chkAllBins.alignment(0)
+gui.SS_Form1.chkAllBins.fontname("Arial")
+gui.SS_Form1.chkAllBins.fontsize(8)
+gui.SS_Form1.chkAllBins.event(click,chkallbins_click)
+gui.SS_Form1.chkAllBins.SetInternationalID(746401)
+gui.SS_Form1.chkAllBins.defaultvalue("")
+gui.SS_Form1.chkAllBins.controlgroup(0)
+gui.SS_Form1.lvwBins.create(listview)
+gui.SS_Form1.lvwBins.view(3)
+gui.SS_Form1.lvwBins.addlistviewcolumn(variable.Translation.60700,2705,0)
+gui.SS_Form1.lvwBins.addlistviewcolumn(variable.Translation.212500,2705,0)
+gui.SS_Form1.lvwBins.visible(True)
+gui.SS_Form1.lvwBins.size(5810,2000)
+gui.SS_Form1.lvwBins.zorder(0)
+gui.SS_Form1.lvwBins.position(100,1220)
+gui.SS_Form1.lvwBins.enabled(True)
+gui.SS_Form1.lvwBins.fontname("Arial")
+gui.SS_Form1.lvwBins.fontsize(8)
+gui.SS_Form1.cmd_lvwBinsAdd.create(button)
+gui.SS_Form1.cmd_lvwBinsAdd.caption("Add")
+gui.SS_Form1.cmd_lvwBinsAdd.visible(True)
+gui.SS_Form1.cmd_lvwBinsAdd.size(1000,330)
+gui.SS_Form1.cmd_lvwBinsAdd.zorder(0)
+gui.SS_Form1.cmd_lvwBinsAdd.position(4810,335)
+gui.SS_Form1.cmd_lvwBinsAdd.enabled(True)
+gui.SS_Form1.cmd_lvwBinsAdd.fontname("Arial")
+gui.SS_Form1.cmd_lvwBinsAdd.fontsize(8)
+gui.SS_Form1.cmd_lvwBinsAdd.event(click,cmd_lvwbinsadd_click)
+gui.SS_Form1.cmd_lvwBinsAdd.SetInternationalID(7600)
+gui.SS_Form1.cmd_lvwBinsAdd.defaultvalue("")
+gui.SS_Form1.cmd_lvwBinsAdd.controlgroup(0)
+gui.SS_Form1.cmd_lvwBinsDelete.create(button)
+gui.SS_Form1.cmd_lvwBinsDelete.caption("Delete")
+gui.SS_Form1.cmd_lvwBinsDelete.visible(True)
+gui.SS_Form1.cmd_lvwBinsDelete.size(1000,330)
+gui.SS_Form1.cmd_lvwBinsDelete.zorder(0)
+gui.SS_Form1.cmd_lvwBinsDelete.position(100,3305)
+gui.SS_Form1.cmd_lvwBinsDelete.enabled(True)
+gui.SS_Form1.cmd_lvwBinsDelete.fontname("Arial")
+gui.SS_Form1.cmd_lvwBinsDelete.fontsize(8)
+gui.SS_Form1.cmd_lvwBinsDelete.event(click,cmd_lvwbinsdelete_click)
+gui.SS_Form1.cmd_lvwBinsDelete.SetInternationalID(171500)
+gui.SS_Form1.cmd_lvwBinsDelete.defaultvalue("")
+gui.SS_Form1.cmd_lvwBinsDelete.controlgroup(0)
+gui.SS_Form1.cmd_lvwBinsClear.create(button)
+gui.SS_Form1.cmd_lvwBinsClear.caption("Clear")
+gui.SS_Form1.cmd_lvwBinsClear.visible(True)
+gui.SS_Form1.cmd_lvwBinsClear.size(1000,330)
+gui.SS_Form1.cmd_lvwBinsClear.zorder(0)
+gui.SS_Form1.cmd_lvwBinsClear.position(1185,3305)
+gui.SS_Form1.cmd_lvwBinsClear.enabled(True)
+gui.SS_Form1.cmd_lvwBinsClear.fontname("Arial")
+gui.SS_Form1.cmd_lvwBinsClear.fontsize(8)
+gui.SS_Form1.cmd_lvwBinsClear.event(click,cmd_lvwbinsclear_click)
+gui.SS_Form1.cmd_lvwBinsClear.SetInternationalID(106700)
+gui.SS_Form1.cmd_lvwBinsClear.defaultvalue("")
+gui.SS_Form1.cmd_lvwBinsClear.controlgroup(0)
+gui.SS_Form1.cmdPrint.create(button)
+gui.SS_Form1.cmdPrint.caption("Print")
+gui.SS_Form1.cmdPrint.visible(True)
+gui.SS_Form1.cmdPrint.size(1000,360)
+gui.SS_Form1.cmdPrint.zorder(0)
+gui.SS_Form1.cmdPrint.position(100,3835)
+gui.SS_Form1.cmdPrint.enabled(True)
+gui.SS_Form1.cmdPrint.fontname("Arial")
+gui.SS_Form1.cmdPrint.fontsize(8)
+gui.SS_Form1.cmdPrint.event(click,cmdprint_click)
+gui.SS_Form1.cmdPrint.SetInternationalID(452800)
+gui.SS_Form1.cmdPrint.defaultvalue("")
+gui.SS_Form1.cmdPrint.controlgroup(0)
+gui.SS_Form1.txtBegBin.tabstop(true)
+gui.SS_Form1.txtBegBin.tabindex(1)
+gui.SS_Form1.cmd_txtBegBin.tabstop(true)
+gui.SS_Form1.cmd_txtBegBin.tabindex(2)
+gui.SS_Form1.txtEndBin.tabstop(true)
+gui.SS_Form1.txtEndBin.tabindex(3)
+gui.SS_Form1.cmd_txtEndBin.tabstop(true)
+gui.SS_Form1.cmd_txtEndBin.tabindex(4)
+gui.SS_Form1.cmd_lvwBinsAdd.tabstop(true)
+gui.SS_Form1.cmd_lvwBinsAdd.tabindex(5)
+gui.SS_Form1.chkAllBins.tabstop(true)
+gui.SS_Form1.chkAllBins.tabindex(6)
+gui.SS_Form1.cmdPrint.tabstop(true)
+gui.SS_Form1.cmdPrint.tabindex(7)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Variable.UDT.uBin.Define("BIRUNID",LONG,"")
+Variable.UDT.uBin.Define("PARTLOC",STRING,"")
+Variable.UDT.uBin.Define("BIN",STRING,"BIN")
+Variable.UDT.uBin.Define("PART",STRING,"PART")
+Variable.UDT.uBin.Define("LOCATION",STRING,"LOCATION")
+Variable.UDT.uBin.Define("JOB",STRING,"JOB")
+Variable.UDT.uBin.Define("SUFFIX",STRING,"SUFFIX")
+Variable.UDT.uBin.Define("BIN_QUANTITY",LONG,"BIN_QUANTITY")
+Variable.UDT.uBin.Define("SEQ",STRING,"SEQ")
+Variable.uGlobal.uBin.Declare("uBin")
+
+Variable.UDT.uPartLoc.Define("PartLoc",STRING,"PartLoc")
+Variable.uGlobal.uPartLoc.Declare("uPartLoc")
+
+Variable.Global.iKey.Declare(String)
+Variable.Global.sRange.Declare(String)
+Variable.Global.iRange.Declare(Long)
+Variable.Global.iBIRunID.Declare(Long,-1)
+Variable.Global.iBILogID.Declare(Long,-1)
+
+
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+F.ODBC.connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.puser,V.Ambient.PPass)
+gui.SS_Form1..applytranslation
+Gui.SS_Form1..show
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+Program.Sub.Main.End
+
+program.sub.ss_form1_unload.start
+F.Intrinsic.Control.SetErrorHandler("ss_form1_unload_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+F.ODBC.Connection!con.Close
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("ss_form1_unload_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.ss_form1_unload.End
+
+program.sub.cmd_txtbegbin_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_txtbegbin_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sRet.Declare(String)
+
+'Opening browser for beginning bin
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+F.Intrinsic.UI.Browser(150,"",V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	Gui.SS_Form1.txtBegBin.Text(V.Local.sRet(0).Trim)
+	Gui.SS_Form1.txtEndBin.Text(V.Screen.SS_Form1!txtBegBin.Text)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_txtbegbin_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmd_txtbegbin_click.End
+
+program.sub.cmd_txtendbin_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_txtendbin_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sRet.Declare(String)
+
+'Opening browser for ending bin
+F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+F.Intrinsic.UI.Browser(150,"",V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet,<>,"***CANCEL***")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+	Gui.SS_Form1.txtEndBin.Text(V.Local.sRet(0).Trim)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_txtendbin_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+program.sub.cmd_txtendbin_click.End
+
+program.sub.cmd_lvwbinsadd_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_lvwbinsadd_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Adding beginning and ending bin to listview
+F.Intrinsic.Math.Add(V.Global.iKey,1,V.Global.iKey)
+Gui.SS_Form1.lvwBins.AddListItem(V.Global.iKey,V.Screen.SS_Form1!txtBegBin.Text)
+Gui.SS_Form1.lvwBins.SetListItemSubItemText(V.Global.iKey,1,V.Screen.SS_Form1!txtEndBin.Text)
+Gui.SS_Form1.txtBegBin.Text("")
+Gui.SS_Form1.txtEndBin.Text("")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_lvwbinsadd_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+program.sub.cmd_lvwbinsadd_click.End
+
+program.sub.chkallbins_click.start
+F.Intrinsic.Control.SetErrorHandler("chkallbins_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'If All Bins is checked, disabling screen items, otherwise enabling them
+F.Intrinsic.Control.If(V.Screen.SS_Form1!chkAllBins.Value,=,1)
+	Gui.SS_Form1.txtBegBin.Enabled(False)
+	Gui.SS_Form1.txtBegBin.Text("")
+	Gui.SS_Form1.txtEndBin.Enabled(False)
+	Gui.SS_Form1.txtEndBin.Text("")
+	Gui.SS_Form1.cmd_lvwBinsAdd.Enabled(False)
+	Gui.SS_Form1.cmd_lvwBinsClear.Enabled(False)
+	Gui.SS_Form1.cmd_lvwBinsDelete.Enabled(False)
+	Gui.SS_Form1.lvwBins.Enabled(False)
+	Gui.SS_Form1.cmd_txtBegBin.Enabled(False)
+	Gui.SS_Form1.cmd_txtEndBin.Enabled(False)
+	Gui.SS_Form1.lvwBins.ClearItems
+F.Intrinsic.Control.Else
+	Gui.SS_Form1.txtBegBin.Enabled(True)
+	Gui.SS_Form1.txtEndBin.Enabled(True)
+	Gui.SS_Form1.cmd_lvwBinsAdd.Enabled(True)
+	Gui.SS_Form1.cmd_lvwBinsClear.Enabled(True)
+	Gui.SS_Form1.cmd_lvwBinsDelete.Enabled(True)
+	Gui.SS_Form1.lvwBins.Enabled(True)
+	Gui.SS_Form1.cmd_txtBegBin.Enabled(True)
+	Gui.SS_Form1.cmd_txtEndBin.Enabled(True)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("chkallbins_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.chkallbins_click.End
+
+program.sub.cmd_lvwbinsdelete_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_lvwbinsdelete_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.iKey.Declare(Long)
+
+V.Local.iKey.Set(V.Screen.SS_Form1!lvwBins.SelectedItemKey)
+Gui.SS_Form1.lvwBins.RemoveItem(V.Local.iKey)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_lvwbinsdelete_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmd_lvwbinsdelete_click.End
+
+program.sub.cmd_lvwbinsclear_click.start
+F.Intrinsic.Control.SetErrorHandler("cmd_lvwbinsclear_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'Clearing list view of all range selections
+Gui.SS_Form1.lvwBins.ClearItems
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmd_lvwbinsclear_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmd_lvwbinsclear_click.End
+
+program.sub.cmdprint_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdprint_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+Gui.SS_Form1..Visible(False)
+F.Global.BI.GetRunID(V.Global.iBIRunID)
+
+'Staring Logging
+F.Intrinsic.Control.If(V.Ambient.IsInIDE,=,True)
+        F.Global.BI.StartLogging(V.Global.iBIRunID,2603,0,"",V.Global.iBILogID)
+F.Intrinsic.Control.Else
+        F.Global.BI.StartLogging(V.Global.iBIRunID,-1,-1,"",V.Global.iBILogID)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub(Loadrst)
+F.Intrinsic.Control.CallSub(Sumrst)
+'Stopping BI logging
+F.Global.BI.StopLogging(V.Global.iBILogID)
+
+F.Intrinsic.Control.CallSub(Callbi)
+F.Intrinsic.Control.CallSub(Ss_form1_unload)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdprint_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdprint_click.End
+
+Program.Sub.LoadRST.Start
+F.Intrinsic.Control.SetErrorHandler("LoadRST_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.sBinList.Declare(String)
+V.Local.i.Declare(Long)
+V.Local.iOrd.Declare(Long)
+V.Local.iRange.Declare(Long,0)
+V.Local.sBin.Declare(String)
+
+V.uGlobal.uBin.Redim(-1,-1)
+'Opening z table to write
+'Checking to see if All Bins was checked, if so, loading z table with all records
+F.Intrinsic.Control.If(V.Screen.SS_Form1!chkAllBins.Value,=,1)
+	'Getting wip bin records
+	V.Local.sSql.Set("Select JOB, SUFFIX, SEQUENCE AS SEQ, PART, LOCATION, BIN, QTY_BIN AS BIN_QUANTITY From V_WIP_BIN where BIN <> '' and QTY_BIN <> 0")
+	'add dataTable for second report
+	F.Data.DataTable.CreateFromSQL("BIN", "con", "Select distinct Bin_MASTER.Bin from Bin_MASTER Right Join  GCG_4131_Medset_Bin On GCG_4131_Medset_Bin.FROM_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.To_BIN= Bin_MASTER.Bin OR GCG_4131_Medset_Bin.BIN= Bin_MASTER.Bin", True)
+	F.ODBC.Connection!con.OpenLocalRecordsetRO("rstBin",V.Local.sSql)
+	F.Intrinsic.Control.If(V.ODBC.con!rstBin.EOF,=,False)
+		F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstBin","V.uGlobal.uBin",True,1000)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rstBin.Close
+
+	'Getting item master records
+	V.Local.sSql.Set("Select PART, LOCATION, BIN, QUANTITY AS BIN_QUANTITY From V_ITEM_MASTER where BIN <> '' and QUANTITY <> 0")
+	F.ODBC.Connection!con.OpenLocalRecordsetRO("rstBin",V.Local.sSql)
+	F.Intrinsic.Control.If(V.ODBC.Con!rstBin.EOF,=,False)
+		
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!JOB,"")
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SUFFIX,"")
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SEQ,"")
+		F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstBin","V.uGlobal.uBin",True,1000)
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!JOB,"JOB")
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SUFFIX,"SUFFIX")
+		F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SEQ,"SEQ")
+	F.Intrinsic.Control.Endif
+	F.ODBC.con!rstBin.Close
+F.Intrinsic.Control.Else
+	'If all bins was not checked, looping through list view to get each range selected and loading z table for each range of bins
+	Gui.SS_Form1.lvwBins.RetrieveAllListItems(V.Local.sBinList)
+	F.Intrinsic.Control.If(V.Local.sBinList,<>,"***NORETURN***")
+		F.Intrinsic.String.Split(V.Local.sBinList,"*!*",V.Local.sBinList)
+		F.Intrinsic.Control.For(V.Local.i,V.Local.sBinList.LBound,V.Local.sBinList.UBound,1)
+			Gui.SS_Form1.lvwBins.ListItemKeyToOrdinal(V.Local.sBinList(V.Local.i),V.Local.iOrd)
+			V.Local.sBin.Set(V.Screen.SS_Form1!lvwBins.ListItemTextExtended(V.Local.iOrd))
+			F.Intrinsic.String.Split(V.Local.sBin,"*!*",V.Local.sBin)
+			'either create or add to dataTable: sBin(0) to sBin(1)
+			'if the BIN dataTable DNE then create it- else create TEMP and merge to BIN
+			
+			F.Intrinsic.String.Build("Select BIN, AUDIT_BY, QUANTITY, cast(RECORD_DATE as DATE)RECORD_DATE, METHOD,COMMENTS, BIN_NAME, FROM_BIN, TO_BIN, LOCATION_FROM, LOCATION_TO, NAWASUSED,FLAG_SURGREADY, TRANS_BY, BIRUNID, TYPE, cast(RECORD_TIME as CHAR(20))RECORD_TIME From GCG_4131_Medset_Bin where FROM_BIN Between '{0}' And '{1}' OR TO_BIN Between '{0}' And '(1)' OR BIN Between '{0}' And '{1}'", V.Local.sBin(0), V.Local.sBin(1),V.Local.ssql)
+			Function.Intrinsic.Control.If(V.DataTable.Bin.Exists, =, True)
+				F.Data.DataTable.CreateFromSQL("TEMP", "con", V.Local.sSql, True)
+				F.Data.DataTable.Merge("TEMP", "BIN", TRUE, 1)
+				F.Data.DataTable.Close("TEMP")
+			Function.Intrinsic.Control.Else
+				F.Data.DataTable.CreateFromSQL("BIN", "con", V.Local.sSql, True)
+			Function.Intrinsic.Control.EndIf
+			F.Intrinsic.Math.Add(V.Local.iRange,1,V.Local.iRange)
+			'Getting wip bin records for range
+			F.Intrinsic.String.Build("SELECT JOB, SUFFIX, SEQUENCE AS SEQ, PART, LOCATION, BIN, QTY_BIN AS BIN_QUANTITY FROM V_WIP_BIN WHERE BIN <> '' AND QTY_BIN <> '0' AND BIN >= '{0}' AND BIN <= '{1}'",V.Local.sBin(0),V.Local.sBin(1),V.Local.sSQL)
+			F.ODBC.Connection!con.OpenLocalRecordsetRO("rstBin",V.Local.sSql)
+			F.Intrinsic.Control.If(V.ODBC.con!rstBin.EOF,=,False)
+				F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstBin","V.uGlobal.uBin",True,1000)
+			F.Intrinsic.Control.EndIf
+			F.ODBC.con!rstBin.Close
+			'Getting item master records for range
+			F.Intrinsic.String.Build("SELECT PART, LOCATION, BIN, QUANTITY AS BIN_QUANTITY FROM V_ITEM_MASTER WHERE BIN <> '' AND QUANTITY <> '0' AND BIN >= '{0}' AND BIN <= '{1}'",V.Local.sBin(0),V.Local.sBin(1),V.Local.sSQL)
+			F.ODBC.Connection!con.OpenLocalRecordsetRO("rstBin",V.Local.sSQL) 
+			F.Intrinsic.Control.If(V.ODBC.con!rstBin.EOF,=,False)
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!JOB,"")
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SUFFIX,"")
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SEQ,"")
+				F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstBin","V.uGlobal.uBin",True,1000)
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!JOB,"JOB")
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SUFFIX,"SUFFIX")
+				F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!SEQ,"SEQ")
+				
+			F.Intrinsic.Control.Endif
+			F.ODBC.con!rstBin.Close
+			
+		F.Intrinsic.Control.Next(V.Local.i)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Control.If(V.uGlobal.uBin.UBound,<>,-1)
+
+	F.Intrinsic.Control.If(V.Local.iRange,=,1)
+		F.Intrinsic.String.Build("{0} - {1}",V.Local.sBin(0),V.Local.sBin,V.Global.sRange)
+	F.Intrinsic.Control.ElseIf(V.Local.iRange,>,1)
+		V.Global.sRange.Set(1)
+	F.Intrinsic.Control.Endif
+
+	F.Intrinsic.Variable.UDTSetMemberValue(V.uGlobal.uBin!BIRUNID,V.Global.iBIRunID)
+	F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!BIRUNID,"BIRUNID")
+	F.ODBC.Connection!con.OpenLocalRecordsetRW("rst","Select * FROM Z_BIN_STATUS")
+	F.Intrinsic.Variable.SaveUDTTORecordSet("con","rst","V.uGlobal.uBin")
+	F.ODBC.con!rst.Close
+F.Intrinsic.Control.Endif
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("LoadRST_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.LoadRST.End
+
+Program.Sub.SumRst.Start
+F.Intrinsic.Control.SetErrorHandler("SumRst_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'If there are many of the same parts within one bin, sum them up as it is done in INV306, Inv > Reports > Bin Status
+
+V.Local.sSQL.Declare(String)
+V.Local.iC.Declare(Long,0)
+V.Local.sPartLoc.Declare(String)
+
+V.uGlobal.uPartLoc.Redim(-1,-1)
+V.uGlobal.uBin.Redim(-1,-1)
+
+F.Intrinsic.String.Build("SELECT DISTINCT PART+LOCATION AS PARTLOC FROM Z_BIN_STATUS WHERE BIRUNID = '{0}'",V.Global.iBIRunID,V.Local.sSQL)
+F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,False)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst","V.uGlobal.uPartLoc",True)
+	F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!PartLoc,"PARTLOC")
+	F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!BIRUNID,"")
+
+	F.Intrinsic.Control.For(V.local.iC,V.uGlobal.uPartLoc.LBound,V.uGlobal.uPartLoc.UBound,1)
+		F.Intrinsic.String.Replace(V.uGlobal.uPartLoc(V.Local.iC)!PARTLOC,"'","''",V.Local.sPartLoc)
+		F.Intrinsic.String.Build("Select BIN, PART, LOCATION, PART+LOCATION AS PARTLOC, JOB, SUFFIX, SEQ, SUM(BIN_QUANTITY) AS BIN_QUANTITY FROM Z_BIN_STATUS WHERE PART+LOCATION = '{0}' AND BIRUNID = '{1}' GROUP BY BIN, PART, LOCATION, JOB, SUFFIX, SEQ",V.Local.sPartLoc,V.Global.iBiRunID,V.Local.sSQL)
+		F.ODBC.Connection!con.OpenLocalRecordsetRO("rstBin",V.Local.sSQL)
+		F.Intrinsic.Control.If(V.ODBC.con!rstBin.EOF,=,False)
+			F.Intrinsic.Variable.LoadUDTFromRecordset("con","rstBin","V.uGlobal.uBin",True,10000)
+		F.Intrinsic.Control.Endif
+		F.ODBC.con!rstBin.Close
+	F.Intrinsic.Control.Next(V.Local.iC)
+	
+	F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!PartLoc,"")
+	F.Intrinsic.String.Build("DELETE FROM Z_BIN_STATUS WHERE BIRUNID = '{0}'",V.Global.iBIRunID,V.Local.sSQL)
+	F.ODBC.Connection!con.Execute(V.Local.sSQL)
+F.Intrinsic.Control.Endif
+F.ODBC.con!rst.Close
+
+F.Intrinsic.Control.If(V.uGlobal.uBin.UBound,<>,-1)
+	F.Intrinsic.Variable.UDTSetMemberValue(V.uGlobal.uBin!BIRUNID,V.Global.iBIRunID)
+	F.Intrinsic.Variable.SetUDTFieldReference(V.uGlobal.uBin!BIRUNID,"BIRUNID")
+	F.ODBC.Connection!con.OpenRecordsetRW("rst","SELECT * FROM Z_BIN_STATUS")
+	F.Intrinsic.Variable.SaveUDTToRecordSet("con","rst","V.uGlobal.uBin")
+	F.ODBC.con!rst.Close
+F.Intrinsic.Control.Endif
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("SumRst_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.SumRst.End
+
+Program.Sub.CallBI.Start
+F.Intrinsic.Control.SetErrorHandler("CallBI_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.local.iRet.declare(Long)
+V.Local.sParams.Declare(String)
+V.Local.sParamVals.Declare(String)
+
+
+V.Local.sParams.Set("PRINT_ALL*!*RANGE")
+F.Intrinsic.String.Build("{0}*!*{1}",V.Screen.SS_Form1!chkAllBins.Value,V.Global.sRange,V.Local.sParamVals)
+'F.Intrinsic.Debug.DumpVariableList
+F.Global.BI.RunReportPreProcessor(V.Global.iBiRunID,V.Global.iBiLogID,V.Local.sParams,V.Local.sParamVals,"",-1,True,"",-1,"",-1,"","",V.Local.iRet)
+
+'call the program to print additional report
+Function.Intrinsic.Control.CallSub(additionalreport)
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("CallBI_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.CallBI.End
+
+program.sub.txtbegbin_gotfocus.start
+F.Intrinsic.Control.SetErrorHandler("txtbegbin_gotfocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+Gui.SS_Form1.txtBegBin.SelectAll
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("txtbegbin_gotfocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.txtbegbin_gotfocus.End
+
+program.sub.txtbegbin_lostfocus.start
+F.Intrinsic.Control.SetErrorHandler("txtbegbin_lostfocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+
+Gui.SS_Form1.txtEndBin.Text(V.Screen.SS_Form1!txtBegBin.Text)
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("txtbegbin_lostfocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.txtbegbin_lostfocus.End
+
+program.sub.txtendbin_gotfocus.start
+F.Intrinsic.Control.SetErrorHandler("txtendbin_gotfocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+Gui.SS_Form1.txtBegBin.SelectAll
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("txtendbin_gotfocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: BIR_IV_Bin_Status.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.txtendbin_gotfocus.End
+
+Program.Sub.AdditionalReport.Start
+F.Intrinsic.Control.SetErrorHandler("AdditionalReport_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+F.Intrinsic.Debug.InvokeDebugger
+
+F.Intrinsic.Debug.Stop
+
+
+V.Local..BulkDeclareLong(iRPT, iLogID, iBIRunID, iRet)
+'call the other report- delete table from database then add new from dataTable
+F.Global.BI.GetRunID(V.Local.iBIRunID)
+F.Global.BI.GetIDFromName("GCG_4131_MedSet_by_Bin.rpt",V.Local.iRPT)
+F.Global.BI.StartLogging(V.Local.iBIRunID,V.local.iRPT,-1,"GCG_4131_MedSet_by_Loc",V.Local.iLogID)
+F.ODBC.Connection!con.Execute("Delete from GCG_4131_RPT_Bin")
+Function.Data.DataTable.SaveToDB("BIN", "con", "GCG_4131_RPT_Bin","", 128)
+Function.Data.DataTable.SetValue("BIN", -1, "BIRUNID",V.Local.iBIRunID)
+
+'print the report
+F.Global.BI.RunReportPreProcessor(V.Local.iBIRunID,V.Local.iLogID,"BIRUNID",V.Local.iBIRunID,"",-1,True,"",-1,"",-1,"","",V.Local.iRet)
+
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("AdditionalReport_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4131_Bin_Status.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	Function.Intrinsic.Control.CallSub(ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+Program.Sub.AdditionalReport.End
+
+Program.Sub.Comments.Start
+${$0$}$BIR_Bin_Status$}$MLA$}$11/11/2013$}$False
+${$3$}$0$}$$}$-1$}$-1$}$$}$1/1/1900$}$Bin Status Report
+Report: IV_Bin_Status.rpt
+Tables: Z_Bin_Status
+Program.Sub.Comments.End
+
+Program.Sub.ScreenSS.Start
+SS_Form1{{CAPTION::Bin Status
+SS_Form1.CTRL{{NAME::txtBegBin\\TYPE::2\\CAPTION::Beginning Bin\\RANGE::lvwBins\\TABSTOP::1\\GROUP::1\\BROWSER::1\\INTL::60700\\SIZE::1
+SS_Form1.CTRL{{NAME::txtEndBin\\TYPE::2\\CAPTION::Ending Bin\\RANGE::lvwBins\\TABSTOP::2\\GROUP::1\\BROWSER::1\\INTL::212500\\SIZE::1
+SS_Form1.CTRL{{NAME::chkAllBins\\TYPE::9\\CAPTION::All Bins\\TABSTOP::3\\GROUP::-1\\SUBGROUP::1\\BROWSER::0\\INTL::746401\\SIZE::1
+SS_Form1.CTRL{{NAME::lvwBins\\TYPE::7\\GROUP::-1\\BROWSER::0\\SIZE::1
+SS_Form1.CTRL{{NAME::cmdPrint\\TYPE::5\\CAPTION::Print\\TABSTOP::4\\GROUP::-1\\BROWSER::0\\INTL::452800\\SIZE::1
+
+Program.Sub.ScreenSS.End
+
